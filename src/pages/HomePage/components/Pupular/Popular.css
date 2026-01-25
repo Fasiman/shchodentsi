@@ -1,0 +1,60 @@
+.popular {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+.popular__title {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.popular__list {
+  display: flex;
+  gap: 24px;
+}
+
+.popular__item {
+  max-width: 420px;
+  width: 100%;
+  background-color: rgba(241, 222, 255, 1);
+  border-radius: 15px;
+}
+
+.popular__image {
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.popular__box {
+  padding: 24px;
+}
+
+.popular__type {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.popular__name {
+  margin-top: 8px;
+  margin-bottom: 24px;
+  line-height: 150%;
+  font-size: 24px;
+}
+
+.popular__author {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 24px;
+}
+
+.popular__data{
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.popular__icon{
+    margin-left: 5px;
+}

@@ -1,0 +1,48 @@
+.why {
+  padding-top: 112px;
+  padding-bottom: 112px;
+}
+
+.why .container {
+  display: flex;
+}
+
+.why__title {
+  font-weight: 700;
+  font-size: 48px;
+  max-width: 40%;
+}
+
+.why__content {
+  margin-left: auto;
+  display: block;
+  max-width: 50%;
+  width: 100%;
+}
+
+
+.why__description{
+    line-height: 150%;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.why__list{
+    display: flex;
+    gap: 24px;
+    margin-top: 40px
+}
+
+.why__svg{
+    margin-bottom: 20px;
+}
+
+.why__item-title{
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.why__item-description{
+    font-weight: 400;
+    margin-top: 16px;
+}
