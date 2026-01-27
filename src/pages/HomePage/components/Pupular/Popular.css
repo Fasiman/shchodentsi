@@ -10,7 +10,10 @@
 
 .popular__list {
   display: flex;
-  gap: 24px;
+  gap: 84px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 .popular__item {

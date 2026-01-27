@@ -5,20 +5,19 @@ const API_URL = "https://696f45bda06046ce6185fca4.mockapi.io/articles";
 
 export const fetchArticles = createAsyncThunk(
   "articles/fetchArticles",
-  async (_, { rejectWithValue }) => {
+  async () => {
     try {
       const { data } = await axios.get(API_URL);
-      console.log(data)
       return data;
-    } catch {
-      console.log("error")
+    } catch (error) {
+      console.log(error)
     }
   },
 );
 
 const initialState = {
   items: [],
-  status: "idle",
+  status: "idle", 
   error: null,
 };
 
@@ -33,7 +32,6 @@ const articlesSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchArticles.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.status = "succeeded";
         state.items = action.payload;
       })
