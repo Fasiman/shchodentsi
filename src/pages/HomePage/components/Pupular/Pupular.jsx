@@ -58,16 +58,17 @@ const Popular = () => {
                   />
                 </p>
 
-                <div className="popular__buttons">
+               
+              </div>
+               <div className="popular__buttons">
                   <button className="popular__more">
                     Переглянути статтю
                   </button>
 
                   <button className="popular__save">
-                    <img src={saved} alt="icon" />
+                    <img className="popular__save-icon" src={saved} alt="icon" />
                   </button>
                 </div>
-              </div>
             </li>
           ))}
         </ul>

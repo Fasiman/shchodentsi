@@ -4,6 +4,7 @@ import Hero from "./components/Hero/Hero"
 import Why from "./components/Why/Why"
 import Popular from "./components/Pupular/Pupular"
 import Authors from "./components/Authors/Authors"
+import Subscribe from "./components/Subscribe/Subscribe"
 
 const HomePage = () => {
 
@@ -16,6 +17,7 @@ const HomePage = () => {
              <Why/>
              <Popular/>
              <Authors/>
+             <Subscribe/>
         </main>
     )
 }
