@@ -19,12 +19,17 @@ const initialState = {
   items: [],
   status: "idle", 
   error: null,
+  filter: "Всі статті",
 };
 
 const articlesSlice = createSlice({
   name: "articles",
   initialState,
-  reducers: {},
+  reducers: {
+    setFilter(state, action) {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchArticles.pending, (state) => {
@@ -42,4 +47,5 @@ const articlesSlice = createSlice({
   },
 });
 
+export const { setFilter } = articlesSlice.actions;
 export default articlesSlice.reducer;

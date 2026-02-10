@@ -1,5 +1,3 @@
-import Container from "../../../../components/Container/Container";
-
 import "./Why.css";
 
 import botinok from "./images/botinok.svg";
@@ -8,7 +6,6 @@ import balans from "./images/balans.svg";
 const Why = () => {
   return (
     <section className="why">
-      <Container>
         <h2 className="why__title">Чому варто читати “Щоденці”?</h2>
         <div className="why__content">
           <p className="why__description">
@@ -35,7 +32,6 @@ const Why = () => {
             </li>
           </ul>
         </div>
-      </Container>
     </section>
   );
 };

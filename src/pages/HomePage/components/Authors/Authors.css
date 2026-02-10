@@ -1,60 +1,98 @@
 .authors {
-    padding-top: 72px;
-    padding-bottom: 72px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  text-align: center;
 }
 
-
 .authors__title {
-    font-size: 48px;
-    font-weight: 700;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
 }
 
 .authors__list {
-    display: flex;
-    gap: 24px;
-    justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
 .authors__item {
-    max-width: 310px;
-    width: 100%;
-    text-align: center;
-    padding: 24px;
+  padding: 24px;
+  border-radius: 15px;
+}
+
+.authors__item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
 }
 
 .authors__name {
-    font-size: 24px;
-    margin-top: 24px;
-    font-weight: 600;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
 .authors__button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    margin-top: 16px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+background-color: #0000000D;
+  border: 1px solid #00000026;
+
+  cursor: pointer;
 }
 
 .authors__button:hover {
-    background-color: rgba(154, 0, 255, 1);
-    color: rgba(255, 255, 255, 1);
+  background-color: rgba(154, 0, 255, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 .authors__all {
-    padding: 10px;
-    border-radius: 10px;
-    background-color: rgba(154, 0, 255, 1);
-    border: none;
-    color: rgba(255, 255, 255, 1);
-    margin-top: 16px;
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
+  padding: 12px 24px;
+  border-radius: 10px;
+  background-color: rgba(154, 0, 255, 1);
+  border: none;
+  color: rgba(255, 255, 255, 1);
+  margin-top: 32px;
+  cursor: pointer;
 }
 
-.authors__all:hover{
-      background-color: rgba(241, 222, 255, 1);
+.authors__all:hover {
+  background-color: rgba(241, 222, 255, 1);
   border: 1px solid rgba(154, 0, 255, 1);
   color: rgba(0, 0, 0, 1);
+}
+
+@media screen and (min-width: 768px) {
+  .authors {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .authors__title {
+    font-size: 32px;
+  }
+
+  .authors__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .authors {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .authors__title {
+    font-size: 48px;
+  }
+
+  .authors__list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
 }

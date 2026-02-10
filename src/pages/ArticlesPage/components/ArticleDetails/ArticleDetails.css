@@ -1,0 +1,35 @@
+.article-details{
+    padding-top: 48px;
+    text-align: center;
+}
+
+.articles__title{
+    font-size: 48px;
+}
+
+.articles__choose{
+    margin-top: 40px;
+    display: flex;
+    max-width: 802px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.articles__choose-item-btn{
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.articles__choose-item-btn:focus,
+.articles__choose-item-btn.active {
+    background-color: #F2F2F2;
+}

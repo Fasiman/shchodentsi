@@ -1,27 +1,30 @@
 .popular {
-  padding-top: 72px;
-  padding-bottom: 72px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .popular__title {
-  font-size: 48px;
+  font-size: 28px;
   font-weight: 700;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
 .popular__list {
   display: flex;
-  gap: 84px;
-  width: 100%;
-  justify-content: center;
-  margin-top: 40px;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
 }
 
 .popular__item {
   position: relative;
-  max-width: 420px;
   width: 100%;
+  max-width: 335px;
   background-color: rgba(241, 222, 255, 1);
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .popular__image {
@@ -32,26 +35,22 @@
 
 .popular__box {
   padding: 24px;
-  padding-bottom: 100px;
-  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .popular__type {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
 }
 
 .popular__name {
   margin-top: 8px;
-  margin-bottom: 24px;
-  line-height: 150%;
-  font-size: 24px;
-}
-
-.popular__author {
-  font-size: 16px;
-  font-weight: 600;
-  margin-top: 24px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  font-size: 20px;
+  flex-grow: 1;
 }
 
 .popular__data {
@@ -59,6 +58,7 @@
   font-weight: 600;
   display: flex;
   align-items: center;
+  margin-top: auto;
 }
 
 .popular__icon {
@@ -66,37 +66,33 @@
 }
 
 .popular__buttons {
-  margin-top: 24px;
   display: flex;
-  position: absolute;
-bottom: 20px;
-left: 24px;
-right: 24px;
+  justify-content: space-between;
+  padding: 0 24px 24px;
 }
 
 .popular__more {
-  padding-left: 66px;
-  padding-right: 66px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 16px;
   border-radius: 10px;
   border: 1px solid #00000026;
   background-color: #0000000d;
+  font-size: 14px;
+  flex-grow: 1;
+  margin-right: 8px;
 }
 
-.popular__more:hover{
+.popular__more:hover {
   color: #fff;
-  background-color: #9A00FF;
+  background-color: #9a00ff;
 }
 
 .popular__save {
-  margin-left: auto;
   display: flex;
   width: 48px;
   height: 48px;
   justify-content: center;
   align-items: center;
-   border-radius: 10px;
+  border-radius: 10px;
   border: 1px solid #00000026;
   background-color: #0000000d;
 }
@@ -104,10 +100,63 @@ right: 24px;
 .popular__save-icon {
   width: 24px;
   height: 24px;
-  
 }
 
+.popular__save:hover {
+  background-color: #9a00ff;
+}
 
-.popular__save:hover{
-  background-color: #9A00FF;
+@media screen and (min-width: 768px) {
+  .popular {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .popular__title {
+    font-size: 32px;
+    text-align: left;
+  }
+
+  .popular__list {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 32px;
+  }
+
+  .popular__item {
+    width: calc(50% - 16px);
+    max-width: none;
+  }
+
+  .popular__item:nth-child(3) {
+    display: none; /* Hide 3rd item on tablets */
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .popular {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .popular__title {
+    font-size: 48px;
+  }
+
+  .popular__list {
+    gap: 84px;
+  }
+
+  .popular__item {
+    width: calc(33.333% - 56px);
+  }
+
+  .popular__item:nth-child(3) {
+    display: flex; /* Show 3rd item on desktop */
+  }
+
+  .popular__name {
+    font-size: 24px;
+  }
 }

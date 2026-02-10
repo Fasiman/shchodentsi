@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Container from "../../../../components/Container/Container";
 import saved from "./images/logo.svg";
 import testImage from "./images/testimage.png";
 import "./Popular.css";
@@ -23,7 +22,6 @@ const Popular = () => {
 
   return (
     <section className="popular">
-      <Container>
         <h2 className="popular__title">Популярні статті</h2>
 
         <ul className="popular__list">
@@ -72,7 +70,6 @@ const Popular = () => {
             </li>
           ))}
         </ul>
-      </Container>
     </section>
   );
 };

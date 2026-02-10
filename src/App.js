@@ -9,11 +9,13 @@ import CreateArticle from "./pages/CreateArticle/CreateArticle";
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import MobileMenu from "./components/Header/components/MobileMenu/MobileMenu";
 
 function App() {
   return (
     <div className="App">
       <Header />
+      <MobileMenu />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/articles" element={<ArticlesPage />}></Route>
