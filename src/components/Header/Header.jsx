@@ -37,7 +37,7 @@ const Header = () => {
               </Link>
             </li>
             <li className="header__item">
-              <Link className="header__link" to="/profile">
+              <Link className="header__link" to="/authors">
                 Щоденці
               </Link>
             </li>

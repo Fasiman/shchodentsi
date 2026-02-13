@@ -1,0 +1,48 @@
+.habbits-articles{
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.habbits-articles .container {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.habbits-articles__text{
+ width: 865px;
+}
+
+.habbits-articles__box{
+    background-color: #F2F2F2;
+    padding: 32px;
+    border-radius: 20px;
+}
+
+.habbits-articles__title{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.habbits-articles__description{
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.habbits-articles__button{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    background-color: #9A00FF;
+    color: #FFFFFF;
+    border-radius: 10px;
+    border: none;
+}
+
+.habbits-articles__button:hover{
+    background-color: #F1DEFF;
+    color: #000000;
+    border: 1px solid #9A00FF;
+}

@@ -33,7 +33,7 @@ const Popular = () => {
               key={article._id?.$oid || article._id || article.id}
             >
               <img
-                className="popular__articles__image"
+                className="popular-articles__image"
                 src={article.img}
                 alt={article.title}
               />

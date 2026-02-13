@@ -1,36 +1,26 @@
-import "./Authors.css"
+import { Link } from "react-router-dom";
+import "./Authors.css";
 
-import avatar from "./images/avatar.png"
+const Authors = ({ users }) => {
+  return (
+    <section className="authors">
+      <h2 className="authors__title">Наші Щоденці</h2>
+      <ul className="authors__list">
+        {users.slice(0, 4).map((user) => (
+          <li className="authors__item" key={user.id}>
+            <img src={user.avatar} alt={user.name} />
+            <h4 className="authors__name">{user.name}</h4>
+            <Link to={`/authors/${user.id}`}>
+              <button className="authors__button">Переглянути профіль</button>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link to="/authors">
+        <button className="authors__all">Переглянути всіх</button>
+      </Link>
+    </section>
+  );
+};
 
-const Authors = () => {
-    return (
-        <section className="authors">
-                <h2 className="authors__title">Наші Щоденці</h2>
-                <ul className="authors__list">
-                    <li className="authors__item">
-                        <img src={avatar} alt="" />
-                        <h4 className="authors__name">Назар Ткаченко</h4>
-                        <button className="authors__button">Переглянути профіль</button>
-                    </li>
-                    <li className="authors__item">
-                        <img src={avatar} alt="" />
-                        <h4 className="authors__name">Назар Ткаченко</h4>
-                        <button className="authors__button">Переглянути профіль</button>
-                    </li>
-                    <li className="authors__item">
-                        <img src={avatar} alt="" />
-                        <h4 className="authors__name">Назар Ткаченко</h4>
-                        <button className="authors__button">Переглянути профіль</button>
-                    </li>
-                    <li className="authors__item">
-                        <img src={avatar} alt="" />
-                        <h4 className="authors__name">Назар Ткаченко</h4>
-                        <button className="authors__button">Переглянути профіль</button>
-                    </li>
-                </ul>
-                <button className="authors__all">Переглянути всіх</button>
-        </section>
-    )
-}
-
-export default Authors
+export default Authors;

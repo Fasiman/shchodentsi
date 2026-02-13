@@ -6,6 +6,7 @@ import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
 import AuthorsPage from "./pages/AuthorsPage/AuthorsPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import CreateArticle from "./pages/CreateArticle/CreateArticle";
+import ArticlePage from "./pages/ArticlePage/ArticlePage";
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/authors" element={<AuthorsPage />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/new-article" element={<CreateArticle />}></Route>
+        <Route path="/articles/:id" element={<ArticlePage />}></Route>
       </Routes>
       <Footer />
     </div>

@@ -12,7 +12,7 @@
 
 .popular-articles__item {
   width: 100%;
-  max-width: 335px;
+  max-width: 421px;
   background-color: #F1DEFF;
   border-radius: 15px;
   display: flex;
@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-.popular__articles__image {
+.popular-articles__image {
   width: 100%;
   display: block;
   border-top-left-radius: 15px;
@@ -97,7 +97,6 @@
 
   .popular-articles__list {
     grid-template-columns: repeat(3, 1fr);
-    gap: 84px;
   }
 
   .popular-articles__name {

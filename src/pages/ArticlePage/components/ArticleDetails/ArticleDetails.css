@@ -1,0 +1,40 @@
+.article-details {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.article-details .container {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.article-details__box {
+  text-align: left;
+}
+
+.article-details__title {
+  font-size: 48px;
+  font-weight: 700;
+}
+.article-details__author {
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.article-details__name {
+  font-weight: 400;
+}
+
+.article-details__date {
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.article-details__numbers {
+  font-weight: 400;
+}
+
+.article-details__image {
+  border-radius: 20px;
+}

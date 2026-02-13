@@ -1,15 +1,22 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../../redux/usersSlice";
+import AuthorsList from "./components/AuthorsList/AuthorsList";
 
 const AuthorsPage = () => {
+  const dispatch = useDispatch();
+  const { items: users, status } = useSelector((state) => state.users);
 
-    useEffect(() => {
-        document.title = "Щоденці | Щоденці"
-    })
-    return (
-        <main>
-             <h1>authors</h1>
-        </main>
-    )
-}
+  useEffect(() => {
+    document.title = "Щоденці | Автори";
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
-export default AuthorsPage
+  return (
+    <main>
+      <AuthorsList users={users} status={status} />
+    </main>
+  );
+};
+
+export default AuthorsPage;
