@@ -65,6 +65,20 @@
   gap: 12px;
 }
 
+.header__mobile-button{
+  padding: 12px;
+  border-radius: 10px;
+  color: #000;
+  background-color: #0000000D;
+  border: 1px solid #00000026;
+}
+
+.header__mobile-button:hover{
+  background-color: #F1DEFF;
+  color: #000;
+  border: 1px solid #9A00FF;
+}
+
 .header__mobile-buttons button {
   padding: 10px;
   border-radius: 8px;

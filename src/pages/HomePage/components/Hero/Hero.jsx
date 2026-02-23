@@ -2,6 +2,12 @@ import "./Hero.css"
 
 import image from "./images/hero-image.png"
 
+const scrollToJoin = () => {
+  document.getElementById("join").scrollIntoView({
+    behavior: "smooth"
+  })
+}
+
 const Hero = () => {
   return (
     <section className="hero">
@@ -12,7 +18,7 @@ const Hero = () => {
             ділимося простими ідеями та практиками, які допоможуть тобі бути
             ефективнішим щодня без зайвого стресу
           </p>
-          <button className="hero__button">Доєднатися</button>
+          <button onClick={scrollToJoin} className="hero__button">Доєднатися</button>
         </div>
         <img className="hero__image" src={image} alt="hero__image" />
     </section>

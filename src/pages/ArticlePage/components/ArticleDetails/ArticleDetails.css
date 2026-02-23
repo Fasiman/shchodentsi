@@ -37,4 +37,5 @@
 
 .article-details__image {
   border-radius: 20px;
+  width: 50%;
 }

@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import "./Popular.css";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "../../../../components/Container/Container";
-import { fetchArticles } from "../../../../redux/articlesSlice";
+import { fetchArticles, setCurrentArticle } from "../../../../redux/articlesSlice";
+
+import { Link } from "react-router-dom";
 
 const Popular = () => {
   const dispatch = useDispatch();
@@ -54,9 +56,13 @@ const Popular = () => {
               </div>
 
               <div className="popular-articles__actions">
-                <button className="popular-articles__button">
+                <Link 
+                  to={`/articles/${article._id.$oid}`} 
+                  className="popular-articles__button"
+                  onClick={() => dispatch(setCurrentArticle(article))}
+                >
                   Переглянути статтю
-                </button>
+                </Link>
               </div>
             </li>
           ))}

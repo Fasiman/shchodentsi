@@ -13,7 +13,7 @@
 .popular-articles__item {
   width: 100%;
   max-width: 421px;
-  background-color: #F1DEFF;
+  background-color: #f1deff;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -58,14 +58,19 @@
 }
 
 .popular-articles__button {
-  width: 100%;
+  display: block;
+  color: #000;
+  text-align: center;
   padding: 10px 16px;
   border-radius: 10px;
   border: 1px solid #00000026;
   background-color: #0000000d;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  width: 100%;
 }
 
 .popular-articles__button:hover {

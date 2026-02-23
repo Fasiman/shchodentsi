@@ -79,6 +79,10 @@
   font-size: 14px;
   flex-grow: 1;
   margin-right: 8px;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #000;
 }
 
 .popular__more:hover {

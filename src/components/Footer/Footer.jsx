@@ -21,7 +21,7 @@ const Footer = () => {
           </span>
           <ul className="footer__list">
             <li className="footer__item">
-              <a className="footer__icon" href="/">
+              <a className="footer__icon" href="https://de-de.facebook.com/">
                 <FaFacebook />
               </a>
             </li>

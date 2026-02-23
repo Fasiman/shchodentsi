@@ -3,24 +3,24 @@ import "./ArticleDetails.css";
 
 import placeholder from "../../images/placeholder.png";
 
-const ArticleDetails = () => {
+const ArticleDetails = ({ article }) => {
   return (
     <section className="article-details">
       <Container>
         <div className="article-details__box">
           <h1 className="article-details__title">
-            Як сформувати звичку ранкового підйому
+            {article.title}
           </h1>
           <p className="article-details__author">
             Автор статті:{" "}
-            <span className="article-details__name">Анастасия Землеройка</span>
+            <span className="article-details__name"></span>
           </p>
           <p className="article-details__date">
             Опубліковано:{" "}
-            <span className="article-details__numbers">23.07.2025</span>
+            <span className="article-details__numbers">{article.date}</span>
           </p>
         </div>
-        <img className="article-details__image" src={placeholder} alt="Placeholder image" />
+        <img className="article-details__image" src={article.img || placeholder} alt={article.title} />
       </Container>
     </section>
   );

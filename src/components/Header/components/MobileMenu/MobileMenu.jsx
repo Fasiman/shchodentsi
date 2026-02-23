@@ -20,8 +20,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
         </nav>
 
         <div className="header__mobile-buttons">
-          <button>Вхід</button>
-          <button className="register">Реєстрація</button>
+          <Link onClick={onClose} className="header__mobile-button" to={"/auth/login"}>Вхід</Link>
+          <Link onClick={onClose} className="header__mobile-button register" to={"/auth/register"}>Реєстрація</Link>
         </div>
       </div>
     </>

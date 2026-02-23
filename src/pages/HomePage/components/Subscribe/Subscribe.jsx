@@ -1,8 +1,9 @@
 import "./Subscribe.css"
+import { Link } from "react-router-dom";
 
 const Subscribe = () => {
   return (
-    <section className="subscribe">
+    <section className="subscribe" id="join">
         <div className="subscribe__content">
             <h2 className="subscribe__title">
             Ставай частиною спільноти корисних звичок
@@ -12,7 +13,7 @@ const Subscribe = () => {
             здоров’я, продуктивності та балансу. Ділися своїм досвідом і надихай
             інших на зміни.
             </p>
-            <button className="subscribe__button">Розпочати сьогодні</button>
+            <Link to={"/auth/register"} className="subscribe__button">Розпочати сьогодні</Link>
         </div>
     </section>
   );

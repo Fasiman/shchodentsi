@@ -1,0 +1,86 @@
+.register__section {
+  text-align: center;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.register__title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.register__description {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.register__form {
+  width: 100%;
+  margin-top: 32px;
+  max-width: 644px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.register__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: left;
+}
+
+.register__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.register__name {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.register__input {
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid #00000026;
+}
+
+.register__input:focus {
+  outline: 2px solid #9a00ff;
+}
+
+.register__submit {
+    margin-top: 24px;
+  padding: 8px;
+  width: 100%;
+  background-color: #9a00ff;
+  color: #fff;
+  border: 1px solid #9a00ff;
+  border-radius: 10px;
+}
+
+
+
+.register__submit:hover {
+  background-color: #f1deff;
+  color: #000;
+  border: 1px solid #9a00ff;
+}
+
+.register__have{
+    margin-top: 24px;
+    font-weight: 400;
+
+}
+
+.register__link{
+    color: #000;
+    text-decoration: underline #000;
+}
+
+.register__link:hover{
+    color: #9a00ff;
+    text-decoration: underline #9a00ff;
+}

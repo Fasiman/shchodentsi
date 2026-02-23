@@ -3,7 +3,9 @@ import saved from "./images/logo.svg";
 import testImage from "./images/testimage.png";
 import "./Popular.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchArticles } from "../../../../redux/articlesSlice";
+import { fetchArticles, setCurrentArticle } from "../../../../redux/articlesSlice"; // Додано setCurrentArticle
+
+import { Link } from "react-router-dom";
 
 const Popular = () => {
   const dispatch = useDispatch();
@@ -59,9 +61,13 @@ const Popular = () => {
                
               </div>
                <div className="popular__buttons">
-                  <button className="popular__more">
+                  <Link
+                    to={`/articles/${article._id.$oid}`}
+                    className="popular__more"
+                    onClick={() => dispatch(setCurrentArticle(article))} // Додано onClick
+                  >
                     Переглянути статтю
-                  </button>
+                  </Link>
 
                   <button className="popular__save">
                     <img className="popular__save-icon" src={saved} alt="icon" />

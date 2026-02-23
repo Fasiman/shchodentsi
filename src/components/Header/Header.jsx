@@ -45,14 +45,14 @@ const Header = () => {
 
           <ul className="header__buttons">
             <li className="header__buttons-item">
-              <button className="header__buttons-button header__buttons-login">
+              <Link to={"/auth/login"} className="header__buttons-button header__buttons-login">
                 Вхід
-              </button>
+              </Link>
             </li>
             <li className="header__buttons-item">
-              <button className="header__buttons-button header__buttons-register">
+              <Link to={"/auth/register"} className="header__buttons-button header__buttons-register">
                 Реєстрація
-              </button>
+              </Link>
             </li>
           </ul>
 
