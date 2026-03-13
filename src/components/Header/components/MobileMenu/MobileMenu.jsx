@@ -1,7 +1,10 @@
 import "./MobileMenu.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MobileMenu = ({ isOpen, onClose }) => {
+  const { currentUser } = useSelector((state) => state.users);
+
   if (!isOpen) return null;
 
   return (
@@ -20,8 +23,17 @@ const MobileMenu = ({ isOpen, onClose }) => {
         </nav>
 
         <div className="header__mobile-buttons">
-          <Link onClick={onClose} className="header__mobile-button" to={"/auth/login"}>Вхід</Link>
-          <Link onClick={onClose} className="header__mobile-button register" to={"/auth/register"}>Реєстрація</Link>
+          {currentUser ? (
+            <>
+              <Link onClick={onClose} className="header__mobile-button" to={"/new-article"}>Нова стаття</Link>
+              <Link onClick={onClose} className="header__mobile-button" to={"/profile"}>Профіль</Link>
+            </>
+          ) : (
+            <>
+              <Link onClick={onClose} className="header__mobile-button" to={"/auth/login"}>Вхід</Link>
+              <Link onClick={onClose} className="header__mobile-button register" to={"/auth/register"}>Реєстрація</Link>
+            </>
+          )}
         </div>
       </div>
     </>

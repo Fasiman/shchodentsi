@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import CreateArticleForm from "./components/CreateArticleForm/CreateArticleForm"
 
 const CreateArticle = () => {
 
@@ -7,7 +8,7 @@ const CreateArticle = () => {
     })
     return (
         <main>
-             <h1>create</h1>
+             <CreateArticleForm />
         </main>
     )
 }

@@ -27,16 +27,30 @@ export const fetchArticleById = createAsyncThunk(
   }
 );
 
-// Отримуємо збережену статтю з localStorage, якщо вона є
+export const createArticle = createAsyncThunk(
+  "articles/createArticle",
+  async (articleData) => {
+    try {
+      const { data } = await axios.post(API_URL, articleData);
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+);
+
 const savedArticle = localStorage.getItem("currentArticle");
 const parsedArticle = savedArticle ? JSON.parse(savedArticle) : null;
 
 const initialState = {
   items: [],
-  currentArticle: parsedArticle, // Встановлюємо початкове значення з localStorage
+  currentArticle: parsedArticle,
   status: "idle", 
   error: null,
   filter: "Всі статті",
+  currentPage: 1,
+  articlesPerPage: 9,
 };
 
 const articlesSlice = createSlice({
@@ -45,11 +59,14 @@ const articlesSlice = createSlice({
   reducers: {
     setFilter(state, action) {
       state.filter = action.payload;
+      state.currentPage = 1; 
     },
     setCurrentArticle(state, action) {
       state.currentArticle = action.payload;
-      // Зберігаємо статтю в localStorage при виборі
       localStorage.setItem("currentArticle", JSON.stringify(action.payload));
+    },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -78,9 +95,21 @@ const articlesSlice = createSlice({
       .addCase(fetchArticleById.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(createArticle.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(createArticle.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items.push(action.payload);
+      })
+      .addCase(createArticle.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });
 
-export const { setFilter, setCurrentArticle } = articlesSlice.actions;
+export const { setFilter, setCurrentArticle, setCurrentPage } = articlesSlice.actions;
 export default articlesSlice.reducer;

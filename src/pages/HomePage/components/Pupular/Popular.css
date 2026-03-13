@@ -12,9 +12,9 @@
 
 .popular__list {
   display: flex;
-  flex-direction: column;
   gap: 24px;
-  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: center; 
 }
 
 .popular__item {
@@ -110,57 +110,3 @@ color: #000;
   background-color: #9a00ff;
 }
 
-@media screen and (min-width: 768px) {
-  .popular {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-
-  .popular__title {
-    font-size: 32px;
-    text-align: left;
-  }
-
-  .popular__list {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 32px;
-  }
-
-  .popular__item {
-    width: calc(50% - 16px);
-    max-width: none;
-  }
-
-  .popular__item:nth-child(3) {
-    display: none; /* Hide 3rd item on tablets */
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .popular {
-    padding-top: 72px;
-    padding-bottom: 72px;
-  }
-
-  .popular__title {
-    font-size: 48px;
-  }
-
-  .popular__list {
-    gap: 84px;
-  }
-
-  .popular__item {
-    width: calc(33.333% - 56px);
-  }
-
-  .popular__item:nth-child(3) {
-    display: flex; /* Show 3rd item on desktop */
-  }
-
-  .popular__name {
-    font-size: 24px;
-  }
-}

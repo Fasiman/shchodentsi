@@ -1,15 +1,53 @@
-import { useEffect } from "react"
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../redux/usersSlice";
+import Container from "../../components/Container/Container";
+
+import ProfileDetail from "./components/ProfileDetail/ProfileDetail";
+import ProfileArticles from "./components/ProfileArticles/ProfileArticles";
+import ProfileLogout from "./components/ProfileLogout/ProfileLogout";
 
 const ProfilePage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.users);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-    useEffect(() => {
-        document.title = "Щоденці | Збережені / Мої історії"
-    })
+  const openLogoutModal = () => setShowLogoutModal(true);
+  const closeLogoutModal = () => setShowLogoutModal(false);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    closeLogoutModal();
+    navigate("/");
+  };
+
+  if (!currentUser) {
     return (
-        <main>
-             
-        </main>
-    )
-}
+      <main>
+        <Container>
+          <p>
+            Ви не увійшли. <Link to="/auth/login">Увійдіть</Link> або
+            переглядайте сайт.
+          </p>
+        </Container>
+      </main>
+    );
+  }
 
-export default ProfilePage
+  return (
+    <main>
+      <ProfileDetail onLogoutClick={openLogoutModal} />
+      <ProfileArticles />
+      {showLogoutModal && (
+        <ProfileLogout
+          onClose={closeLogoutModal}
+          onConfirm={handleLogout}
+        />
+      )}
+    </main>
+  );
+};
+
+export default ProfilePage;

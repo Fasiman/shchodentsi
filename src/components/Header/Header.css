@@ -61,6 +61,28 @@ display: none;
   color: rgba(0, 0, 0, 1);
 }
 
+.header__buttons-create {
+  background-color: #9a00ff;
+  color: #fff;
+}
+
+.header__buttons-create:hover {
+  background-color: rgba(154, 0, 255, 0.8);
+}
+
+.header__avatar-item {
+  list-style: none;
+  margin-left: 16px;
+}
+
+.header__avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
 .header__hamburger-button{
   margin-left: auto;
   background: none;

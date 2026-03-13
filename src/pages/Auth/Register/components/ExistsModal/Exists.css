@@ -1,0 +1,66 @@
+.exists-modal__backdrop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    display: none;
+    
+}
+
+
+.exists-modal{
+    position: relative;
+    background-color: #fff;
+    max-width: 768px;
+    width: 100%;
+    display: block;
+    padding: 64px;
+    margin-left: auto;
+    border-radius: 15px;
+    margin-right: auto;
+    text-align: center;
+}
+
+.exists-modal__close{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    background: none;
+    border: none;
+}
+
+.exists-modal__title{
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.exists-modal__description{
+    font-size: 18px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.exists-modal__button{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 57px;
+    padding-right: 57px;
+    max-width: 203px;
+    width: 100%;
+    margin-left: 24px;
+    background-color: #9A00FF;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid #9A00FF;
+}
+
+
+.exists-modal__button:hover{
+    background-color: #F1DEFF;
+    border-color: #7a00b3;
+    color: #000;
+}

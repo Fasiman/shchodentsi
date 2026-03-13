@@ -22,7 +22,7 @@ const ArticleDetails = () => {
   return (
     <section className="article-details">
       <Container>
-        <h1 className="articles__title">Статті</h1>
+       
         <ul className="articles__choose">
           {categories.map((category) => (
             <li className="articles__choose-item" key={category}>

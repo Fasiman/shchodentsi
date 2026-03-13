@@ -15,16 +15,76 @@ export const fetchUsers = createAsyncThunk(
   }
 );
 
+export const registerUser = createAsyncThunk(
+  "users/registerUser",
+  async (userData) => {
+    try {
+      const { data } = await axios.post(API_URL, userData);
+      
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+const getInitialCurrentUser = () => {
+  try {
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+  } catch (error) {
+    console.error("Error getting current user from local storage", error);
+    return null;
+  }
+}
+
 const initialState = {
   items: [],
   status: "idle",
   error: null,
+  currentUser: getInitialCurrentUser(),
 };
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    login(state, action) {
+        const user = state.items.find(u => u.email && u.email.toLowerCase() === action.payload.email.toLowerCase());
+        if (user && user.password === action.payload.password) {
+            state.currentUser = user;
+            state.error = null;
+            try {
+              localStorage.setItem('currentUser', JSON.stringify(user));
+            } catch (error) {
+              console.error("Error setting current user in local storage", error);
+            }
+        } else if (user && user.password !== action.payload.password) {
+            state.currentUser = null;
+            state.error = "Неправильний пароль";
+            alert("Неправильний пароль");
+        } else {
+            state.currentUser = null;
+            state.error = "Користувач не знайдений";
+        }
+    },
+    logout(state) {
+        state.currentUser = null;
+        try {
+          localStorage.removeItem('currentUser');
+        } catch (error) {
+          console.error("Error removing current user from local storage", error);
+        }
+    },
+    updateCurrentUser(state, action) {
+        state.currentUser = action.payload;
+        try {
+          localStorage.setItem('currentUser', JSON.stringify(action.payload));
+        } catch (error) {
+          console.error("Error updating current user in local storage", error);
+        }
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -38,8 +98,27 @@ const usersSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items.push(action.payload);
+        state.currentUser = action.payload;
+        try {
+          localStorage.setItem('currentUser', JSON.stringify(action.payload));
+        } catch (error) {
+          console.error("Error setting current user in local storage", error);
+        }
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
       });
   },
 });
 
+export const { login, logout, updateCurrentUser } = usersSlice.actions;
 export default usersSlice.reducer;

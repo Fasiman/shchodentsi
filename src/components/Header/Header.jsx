@@ -5,9 +5,11 @@ import MobileMenu from "./components/MobileMenu/MobileMenu";
 import { Link } from "react-router-dom";
 import logo from "./logo.svg";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { currentUser } = useSelector((state) => state.users);
 
   const openMobileMenu = () => {
     setIsMobileOpen(true);
@@ -44,16 +46,47 @@ const Header = () => {
           </ul>
 
           <ul className="header__buttons">
-            <li className="header__buttons-item">
-              <Link to={"/auth/login"} className="header__buttons-button header__buttons-login">
-                Вхід
-              </Link>
-            </li>
-            <li className="header__buttons-item">
-              <Link to={"/auth/register"} className="header__buttons-button header__buttons-register">
-                Реєстрація
-              </Link>
-            </li>
+            {!currentUser && (
+              <>
+                <li className="header__buttons-item">
+                  <Link
+                    to={"/auth/login"}
+                    className="header__buttons-button header__buttons-login"
+                  >
+                    Вхід
+                  </Link>
+                </li>
+                <li className="header__buttons-item">
+                  <Link
+                    to={"/auth/register"}
+                    className="header__buttons-button header__buttons-register"
+                  >
+                    Реєстрація
+                  </Link>
+                </li>
+              </>
+            )}
+            {currentUser && (
+              <>
+                <li className="header__buttons-item">
+                  <Link
+                    to={"/new-article"}
+                    className="header__buttons-button header__buttons-create"
+                  >
+                   Опублікувати статтю
+                  </Link>
+                </li>
+                <li className="header__avatar-item">
+                  <Link to="/profile">
+                    <img
+                      className="header__avatar-img"
+                      src={currentUser.avatar}
+                      alt="user avatar"
+                    />
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           <button className="header__hamburger-button" onClick={openMobileMenu}>

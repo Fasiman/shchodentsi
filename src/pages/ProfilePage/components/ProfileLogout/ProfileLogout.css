@@ -1,0 +1,96 @@
+.profile-logout__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  display: flex;
+}
+
+.profile-logout {
+  position: relative;
+  background-color: #fff;
+  max-width: 768px;
+  width: 100%;
+  display: block;
+  padding: 64px;
+  margin-left: auto;
+  border-radius: 15px;
+  margin-right: auto;
+  text-align: center;
+}
+
+.profile-logout__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 30px;
+  background: none;
+  border: none;
+}
+
+
+.profile-logout__title{
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.profile-logout__description{
+  font-size: 18px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+
+.profile-logout__button{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 57px;
+  padding-right: 57px;
+  max-width: 203px;
+  width: 100%;
+  margin-left: 24px;
+}
+
+.profile-logout__button--cancel{
+  background-color: #0000000D;
+  border: 1px solid #00000026;
+  color: #000;
+  border-radius: 10px;
+}
+
+
+.profile-logout__button--cancel:hover{
+  background-color: #9A00FF;
+  border: 1px solid #9A00FF;
+  color: #fff;
+}
+
+.profile-logout__button--confirm{
+  background-color: #9A00FF;
+  border: 1px solid #9A00FF;
+  color: #fff;
+  border-radius: 10px;
+}
+
+
+.profile-logout__button--confirm:hover{
+  background-color: #F1DEFF;
+  border: 1px solid #9A00FF;
+  color: #000;
+}
+
+
+
+@media screen and (max-width: 1440px) {
+  .profile-logout__buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+     align-items: center;
+
+  }
+}

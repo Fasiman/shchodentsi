@@ -1,0 +1,200 @@
+.profile-detail {
+  padding-top: 48px;
+  margin-bottom: 48px;
+}
+
+.profile-detail .container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-detail__image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.profile-detail__box {
+  margin-left: 24px;
+}
+
+.profile-detail__name {
+  font-size: 24px;
+}
+
+.profile-detail__saved {
+  font-size: 16px;
+}
+
+.profile-detail__logout {
+  margin-top: 14px;
+  padding: 10px;
+  background-color: #9a00ff;
+  color: #fff;
+  border: 1px solid #9a00ff;
+  border-radius: 10px;
+}
+
+.profile-detail__logout:hover {
+  background-color: #f1deff;
+  color: #000;
+  border: 1px solid #9a00ff;
+}
+
+
+.profile-detail__edit{
+  margin-top: 14px;
+  padding: 10px;
+  background-color: #0000000d;
+  color: #000;
+  border: 1px solid #00000026;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.profile-detail__edit:hover {
+  background-color: #9a00ff;
+  color: #fff;
+  border: 1px solid #9a00ff;
+}
+
+@media screen and (min-width: 768px) {
+  .profile-detail {
+    padding-top: 80px;
+  }
+
+  .profile-detail__name {
+    font-size: 48px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .profile-detail {
+    padding-top: 112px;
+    display: block;
+    padding-bottom: 112px;
+  }
+
+  .profile-detail__name {
+    font-size: 48px;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .profile-detail .container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 20px;
+
+}
+
+  .profile-detail__box{
+    margin-left: 0;
+    margin-top: 24px;
+  }
+}
+
+
+.profile__backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+
+
+.profile__form{
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile__change{
+  font-size: 48px;
+  font-weight: 700;
+   width: 644px;
+   text-align: center;
+}
+
+.profile__photo{
+  width: 644px;
+  text-align: center;
+  margin-top: 24px;
+  text-align: left;
+}
+
+.profile__photo-title{
+  text-align: left;
+
+}
+
+.avatar__preview{
+  width: 117px;
+  height: 117px;
+  border-radius: 50%;
+  background-image: url("./images/zaglushka.png");
+}
+
+.profile__photo-load{
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  font-weight: 500;
+}
+
+.profile__photo-button{
+ margin-left: 24px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #00000026;
+}
+
+.profile__photo-button:hover{
+  background-color: #9a00ff;
+  color: #fff;
+  border: 1px solid #9a00ff;
+}
+
+.profile__save{
+  width: 644px;
+  margin-top: 48px;
+  background-color: #e2b8ff;
+  color: #fff;
+  border: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 10px;
+  cursor: not-allowed;
+  
+}
+
+/* .profile__save{
+  width: 644px;
+  margin-top: 48px;
+  background-color: #9a00ff;
+  color: #fff;
+  border: 1px solid #9a00ff;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 10px;
+}
+
+.profile__save:hover{
+  background-color: #f1deff;
+  color: #000;
+  border: 1px solid #9a00ff;
+} */

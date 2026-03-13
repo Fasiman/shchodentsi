@@ -1,0 +1,123 @@
+.create {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.create__title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.create__form {
+  margin-top: 35px;
+}
+
+.create__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 865px;
+  width: 100%;
+}
+
+.create__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.create__name {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.create__input {
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.create__textarea {
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  height: 215px;
+}
+
+.create__buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 60px;
+}
+
+.create__button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 57px;
+  padding-right: 57px;
+  max-width: 203px;
+  width: 100%;
+  background-color: #9a00ff;
+  color: #fff;
+  border-radius: 10px;
+  border: 1px solid #9a00ff;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.create__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.create__button-cancel {
+  background-color: #0000000d;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.create__preview {
+  margin-top: 16px;
+  max-width: 300px;
+}
+
+.create__preview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+@media screen and (min-width: 768px) {
+    .create {
+        padding-top: 80px;
+    }
+    
+    .create__title {
+        font-size: 48px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+  .create {
+    padding-top: 112px;
+    display: block;
+    padding-bottom: 112px;
+  }
+
+  .create__title {
+    font-size: 48px;
+  }
+
+  
+}
+
+
+@media screen and (max-width: 1440px) {
+    .create__buttons{
+    flex-direction: column; 
+    gap: 16px;
+    width: 100%;
+    justify-content: center;
+    
+  }
+}
