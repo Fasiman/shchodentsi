@@ -19,9 +19,8 @@ const Popular = () => {
     }
   }, [status, dispatch]);
 
-  const saveArticle = (event) => {
-    const articleId = event.target.id || event.target.closest('button').id;
-    if (!currentUser) {
+  const saveArticle = (articleId) => {
+    if (!currentUser || !articleId) {
       return;
     }
     const savedArticle = { id: articleId };
@@ -30,7 +29,10 @@ const Popular = () => {
       savedArticles: [...(currentUser.savedArticles || []), savedArticle],
       saved: (currentUser.saved || 0) + 1
     };
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser)
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
+      savedArticles: updatedUser.savedArticles,
+      saved: updatedUser.saved,
+    })
       .then((response) => {
         console.log("Article saved:", response.data);
         dispatch(updateCurrentUser(updatedUser));
@@ -40,9 +42,8 @@ const Popular = () => {
       });
   };
 
-  const removeArticle = (event) => {
-    const articleId = event.target.id || event.target.closest('button').id;
-    if (!currentUser) {
+  const removeArticle = (articleId) => {
+    if (!currentUser || !articleId) {
       return;
     }
     const updatedUser = {
@@ -50,7 +51,10 @@ const Popular = () => {
       savedArticles: currentUser.savedArticles.filter(sa => sa.id !== articleId),
       saved: Math.max((currentUser.saved || 0) - 1, 0)
     };
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser)
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
+      savedArticles: updatedUser.savedArticles,
+      saved: updatedUser.saved,
+    })
       .then((response) => {
         console.log("Article removed:", response.data);
         dispatch(updateCurrentUser(updatedUser));
@@ -68,13 +72,14 @@ const Popular = () => {
   return (
     <section className="popular">
         <h2 className="popular__title">Популярні статті</h2>
-
+        <ul className="popular__list">
           {popularArticles.map((article) => {
-            const isSaved = currentUser?.savedArticles?.some(sa => sa.id === (article._id?.$oid || article._id));
+            const id = article._id?.$oid || article._id;
+            const isSaved = currentUser?.savedArticles?.some(sa => sa.id === id);
             return (
             <li
               className="popular__item"
-              key={article._id?.$oid || article._id}
+              key={id}
             >
               <img
                 src={article.img || testImage}
@@ -106,20 +111,21 @@ const Popular = () => {
               </div>
                <div className="popular__buttons">
                   <Link
-                    to={`/articles/${article._id.$oid}`}
+                    to={`/articles/${id}`}
                     className="popular__more"
                     onClick={() => dispatch(setCurrentArticle(article))}
                   >
                     Переглянути статтю
                   </Link>
 
-                  <button onClick={isSaved ? removeArticle : saveArticle} id={article._id.$oid} className={`popular__save ${isSaved ? 'popular__saved' : ''}`}>
+                  <button onClick={() => isSaved ? removeArticle(id) : saveArticle(id)} className={`popular__save ${isSaved ? 'popular__saved' : ''}`}>
                     <img className="popular__save-icon" src={saved} alt={isSaved ? "remove" : "save"} />
                   </button>
                 </div>
             </li>
             );
           })}
+        </ul>
     </section>
   );
 };

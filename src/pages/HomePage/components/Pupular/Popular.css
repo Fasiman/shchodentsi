@@ -4,17 +4,17 @@
 }
 
 .popular__title {
-  font-size: 28px;
+  font-size: 48px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 24px;
 }
 
 .popular__list {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 24px;
-  flex-wrap: nowrap;
-  justify-content: center; 
+  justify-items: center;
 }
 
 .popular__item {
@@ -110,3 +110,22 @@ color: #000;
   background-color: #9a00ff;
 }
 
+.popular__saved {
+  background-color: #9a00ff;
+}
+
+.popular__saved .popular__save-icon {
+  filter: brightness(0) invert(1);
+}
+
+@media screen and (min-width: 768px) {
+  .popular__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .popular__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

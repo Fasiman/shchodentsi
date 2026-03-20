@@ -3,18 +3,66 @@ import "./Popular.css";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "../../../../components/Container/Container";
 import { fetchArticles, setCurrentArticle, setCurrentPage } from "../../../../redux/articlesSlice";
-
+import { updateCurrentUser } from "../../../../redux/usersSlice";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import savedIcon from "../../../../pages/HomePage/components/Pupular/images/logo.svg";
 
 const Popular = () => {
   const dispatch = useDispatch();
   const { items, status, filter, currentPage, articlesPerPage } = useSelector((state) => state.articles);
+  const currentUser = useSelector((state) => state.users.currentUser);
 
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchArticles());
     }
   }, [status, dispatch]);
+
+  const saveArticle = (articleId) => {
+    if (!currentUser || !articleId) {
+      return;
+    }
+    const savedArticle = { id: articleId };
+    const updatedUser = {
+      ...currentUser,
+      savedArticles: [...(currentUser.savedArticles || []), savedArticle],
+      saved: (currentUser.saved || 0) + 1
+    };
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
+      savedArticles: updatedUser.savedArticles,
+      saved: updatedUser.saved,
+    })
+      .then((response) => {
+        console.log("Article saved:", response.data);
+        dispatch(updateCurrentUser(updatedUser));
+      })
+      .catch((error) => {
+        console.error("Error saving article:", error);
+      });
+  };
+
+  const removeArticle = (articleId) => {
+    if (!currentUser || !articleId) {
+      return;
+    }
+    const updatedUser = {
+      ...currentUser,
+      savedArticles: currentUser.savedArticles.filter(sa => sa.id !== articleId),
+      saved: Math.max((currentUser.saved || 0) - 1, 0)
+    };
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
+      savedArticles: updatedUser.savedArticles,
+      saved: updatedUser.saved,
+    })
+      .then((response) => {
+        console.log("Article removed:", response.data);
+        dispatch(updateCurrentUser(updatedUser));
+      })
+      .catch((error) => {
+        console.error("Error removing article:", error);
+      });
+  };
 
   const filteredItems =
     filter === "Всі статті"
@@ -43,10 +91,13 @@ const Popular = () => {
         ) : (
           <>
             <ul className="popular-articles__list">
-              {currentArticles.map((article) => (
+              {currentArticles.map((article) => {
+                const id = article._id?.$oid || article._id || article.id;
+                const isSaved = currentUser?.savedArticles?.some(sa => sa.id === id);
+                return (
                 <li
                   className="popular-articles__item"
-                  key={article._id?.$oid || article._id || article.id}
+                  key={id}
                 >
                   <img
                     className="popular-articles__image"
@@ -70,19 +121,21 @@ const Popular = () => {
                   </div>
 
                   <div className="popular-articles__actions">
-                    <Link 
-                      to={`/articles/${article._id?.$oid || article._id || article.id}`} 
+                    <Link
+                      to={`/articles/${id}`}
                       className="popular-articles__button"
                       onClick={() => dispatch(setCurrentArticle(article))}
                     >
                       Переглянути статтю
                     </Link>
+                    <button onClick={() => isSaved ? removeArticle(id) : saveArticle(id)} className={`popular-articles__save-btn ${isSaved ? 'saved' : ''}`}>
+                      <img className="popular-articles__save-icon" src={savedIcon} alt={isSaved ? "remove" : "save"} />
+                    </button>
                   </div>
                 </li>
-              ))}
+              )})}
             </ul>
 
-            {/* Пагинация */}
             {totalPages > 1 && (
               <div className="pagination">
                 <button

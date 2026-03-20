@@ -10,6 +10,9 @@ const HabbitsArticles = ({ article }) => {
 
   const isSaved = currentUser?.savedArticles?.some(sa => sa.id === (article._id?.$oid || article._id));
 
+  const articleOwnerId = article.ownerId?.$oid || article.ownerId;
+  const isOwner = currentUser?.id === articleOwnerId;
+
   const saveArticle = () => {
     if (!currentUser) {
       return;
@@ -20,7 +23,10 @@ const HabbitsArticles = ({ article }) => {
       savedArticles: [...(currentUser.savedArticles || []), savedArticle],
       saved: (currentUser.saved || 0) + 1
     };
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser)
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
+      savedArticles: updatedUser.savedArticles,
+      saved: updatedUser.saved,
+    })
       .then((response) => {
         console.log("Article saved:", response.data);
         dispatch(updateCurrentUser(updatedUser));
@@ -39,7 +45,10 @@ const HabbitsArticles = ({ article }) => {
       savedArticles: currentUser.savedArticles.filter(sa => sa.id !== (article._id?.$oid || article._id)),
       saved: Math.max((currentUser.saved || 0) - 1, 0)
     };
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser)
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
+      savedArticles: updatedUser.savedArticles,
+      saved: updatedUser.saved,
+    })
       .then((response) => {
         console.log("Article removed:", response.data);
         dispatch(updateCurrentUser(updatedUser));
@@ -54,6 +63,7 @@ const HabbitsArticles = ({ article }) => {
         <p className="habbits-articles__text">
           {article.article}
         </p>
+        {!isOwner && (
         <div className="habbits-articles__box">
           <h3 className="habbits-articles__title">Збережіть собі статтю</h3>
           <p className="habbits-articles__description">
@@ -63,6 +73,7 @@ const HabbitsArticles = ({ article }) => {
             {isSaved ? "Видалити з збережених" : "Зберегти"}
           </button>
         </div>
+        )}
       </Container>
     </section>
   );

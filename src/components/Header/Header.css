@@ -29,127 +29,120 @@
   margin-left: 32px;
   display: flex;
   gap: 16px;
-display: none;
-}
+  display: none;
+  align-items: center;
 
-.header__buttons-button {
-  padding-top: 4px;
-  padding-block: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  color: #000;
-}
+  .header__buttons-button {
+    padding-top: 4px;
+    padding-block: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #000;
+    display: inline-block;
+    text-decoration: none;
+  }
 
-.header__buttons-register {
-  background-color: #9a00ff;
-  color: #fff;
-}
+  .header__buttons-register {
+    background-color: #9a00ff;
+    color: #fff;
+  }
 
-.header__buttons-login:hover {
+  .header__buttons-login:hover {
     background-color: rgba(154, 0, 255, 1);
     color: rgba(255, 255, 255, 1);
-}
-
-.header__buttons-register:hover {
-  background-color: rgba(241, 222, 255, 1);
-  border: 1px solid rgba(154, 0, 255, 1);
-  color: rgba(0, 0, 0, 1);
-}
-
-.header__buttons-create {
-  background-color: #9a00ff;
-  color: #fff;
-}
-
-.header__buttons-create:hover {
-  background-color: rgba(154, 0, 255, 0.8);
-}
-
-.header__avatar-item {
-  list-style: none;
-  margin-left: 16px;
-}
-
-.header__avatar-img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-.header__hamburger-button{
-  margin-left: auto;
-  background: none;
- width: 32px;
-  height: 32px;
-  border: 1px solid #00000026;
-  background-color: #0000000D;
-  border-radius: 8px;
-  color: #000;
-}
-
-
-.header__hamburger-button:hover {
-  background-color: #9a00ff;
-  color: #fff;
-}
-
-@media screen and (min-width: 768px) {
- 
-}
-
-@media screen and (min-width: 1440px) {
-  .header__hamburger-button {
-    display: none;
   }
-  .header {
-  background: none;
-}
 
-.header .container {
-  display: flex;
-  align-items: center;
-}
+  .header__buttons-register:hover {
+    background-color: rgba(241, 222, 255, 1);
+    border: 1px solid rgba(154, 0, 255, 1);
+    color: rgba(0, 0, 0, 1);
+  }
 
-.header__logo {
-  align-items: center;
-  display: flex;
-  gap: 8px;
-  font-weight: 700;
-}
+  .header__buttons-create {
+    background-color: #9a00ff;
+    color: #fff;
+  }
 
-.header__list {
-  display: flex;
-  margin-left: auto;
-  gap: 32px;
-}
+  .header__buttons-create:hover {
+    background-color: rgba(241, 222, 255, 1);
+    border: 1px solid rgba(154, 0, 255, 1);
+    color: rgba(0, 0, 0, 1);
+  }
 
-.header__link {
-  color: #000;
-}
+  .header__avatar-item {
+    list-style: none;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+  }
 
-.header__buttons {
-  margin-left: 32px;
-  display: flex;
-  gap: 16px;
+  .header__avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
 
-}
+  .header__hamburger-button {
+    margin-left: auto;
+    background: none;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #00000026;
+    background-color: #0000000d;
+    border-radius: 8px;
+    color: #000;
+  }
 
-/* .header__buttons-button {
-  padding-top: 4px;
-  padding-block: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-} */
+  .header__hamburger-button:hover {
+    background-color: #9a00ff;
+    color: #fff;
+  }
+
+  @media screen and (min-width: 768px) {
+  }
+
+  @media screen and (min-width: 1440px) {
+    .header__hamburger-button {
+      display: none;
+    }
+    .header {
+      background: none;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+    }
+
+    .header__logo {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .header__list {
+      display: flex;
+      margin-left: auto;
+      gap: 32px;
+    }
+
+    .header__link {
+      color: #000;
+    }
+
+    .header__buttons {
+      margin-left: 32px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+  }
 }

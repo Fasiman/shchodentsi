@@ -1,48 +1,98 @@
-.habbits-articles{
-    padding-top: 48px;
-    padding-bottom: 48px;
+.habbits-articles {
+  padding-top: 48px;
+  padding-bottom: 48px;
 }
 
 .habbits-articles .container {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.habbits-articles__text {
+  width: 100%;
+}
+
+.habbits-articles__box {
+  background-color: #F2F2F2;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.habbits-articles__title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.habbits-articles__description {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.habbits-articles__button {
+  padding: 10px;
+  width: 100%;
+  background-color: #9A00FF;
+  color: #FFFFFF;
+  border-radius: 10px;
+  border: none;
+  transition: 0.3s ease;
+}
+
+
+@media (min-width: 375px) {
+  .habbits-articles__title {
+    font-size: 22px;
+  }
+
+  .habbits-articles__description {
+    font-size: 15px;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .habbits-articles .container {
+    flex-direction: row;
+    align-items: stretch;
     gap: 24px;
-    align-items: center;
-}
+  }
 
-.habbits-articles__text{
- width: 865px;
-}
+  .habbits-articles__text {
+    width: 60%;
+  }
 
-.habbits-articles__box{
-    background-color: #F2F2F2;
-    padding: 32px;
-    border-radius: 20px;
-}
+  .habbits-articles__box {
+    padding: 28px;
+  }
 
-.habbits-articles__title{
+  .habbits-articles__title {
     font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 16px;
-}
+  }
 
-.habbits-articles__description{
+  .habbits-articles__description {
     font-size: 16px;
-    font-weight: 400;
-    margin-bottom: 16px;
+  }
 }
 
-.habbits-articles__button{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-    background-color: #9A00FF;
-    color: #FFFFFF;
-    border-radius: 10px;
-    border: none;
+
+@media (min-width: 1440px) {
+  .habbits-articles__text {
+    max-width: 865px; 
+  }
+
+  .habbits-articles__box {
+    padding: 32px;
+  }
 }
 
-.habbits-articles__button:hover{
+
+@media (hover: hover) {
+  .habbits-articles__button:hover {
     background-color: #F1DEFF;
     color: #000000;
     border: 1px solid #9A00FF;
+  }
 }

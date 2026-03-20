@@ -29,9 +29,10 @@ export const fetchArticleById = createAsyncThunk(
 
 export const createArticle = createAsyncThunk(
   "articles/createArticle",
-  async (articleData) => {
+  async (articleData, { dispatch }) => {
     try {
       const { data } = await axios.post(API_URL, articleData);
+      dispatch(fetchArticles());
       return data;
     } catch (error) {
       console.log(error);
@@ -102,7 +103,6 @@ const articlesSlice = createSlice({
       })
       .addCase(createArticle.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.items.push(action.payload);
       })
       .addCase(createArticle.rejected, (state, action) => {
         state.status = "failed";

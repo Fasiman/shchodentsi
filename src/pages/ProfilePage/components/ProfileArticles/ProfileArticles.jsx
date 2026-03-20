@@ -34,7 +34,10 @@ const ProfileArticles = () => {
       savedArticles: currentUser.savedArticles.filter(sa => sa.id !== articleId),
       saved: Math.max((currentUser.saved || 0) - 1, 0)
     };
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser)
+    axios.patch(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
+      savedArticles: updatedUser.savedArticles,
+      saved: updatedUser.saved,
+    })
       .then((response) => {
         console.log("Article removed:", response.data);
         dispatch(updateCurrentUser(updatedUser));

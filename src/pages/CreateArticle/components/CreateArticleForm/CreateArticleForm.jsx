@@ -24,8 +24,8 @@ const CreateArticleForm = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 200000) {
-        alert("Файл занадто великий. Максимальний розмір: 200KB");
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Файл занадто великий. Максимальний розмір: 5MB");
         return;
       }
 
@@ -40,8 +40,9 @@ const CreateArticleForm = () => {
           
           let width = img.width;
           let height = img.height;
-          const maxWidth = 600;
-          const maxHeight = 400;
+          
+          const maxWidth = 800;
+          const maxHeight = 800;
           
           if (width > height) {
             if (width > maxWidth) {
@@ -59,7 +60,7 @@ const CreateArticleForm = () => {
           canvas.height = height;
           ctx.drawImage(img, 0, 0, width, height);
           
-          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.5);
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
           
           setImagePreview(compressedBase64);
           setFormData((prev) => ({
