@@ -11,8 +11,6 @@ const ArticleDetails = ({ article }) => {
   const authorName = article.name || (foundUser ? foundUser.name : "Анонім");
   const authorId = article.ownerId || (foundUser ? foundUser.id : null);
 
-  const articleIdentifier = article.articleId || article.id || article._id;
-
   return (
     <section className="article-details">
       <Container>

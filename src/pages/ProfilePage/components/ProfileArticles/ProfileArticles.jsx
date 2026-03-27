@@ -3,8 +3,6 @@ import "./ProfileArticles.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchArticles, setCurrentArticle } from "../../../../redux/articlesSlice";
-import { updateCurrentUser } from "../../../../redux/usersSlice";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ProfileArticles = () => {
