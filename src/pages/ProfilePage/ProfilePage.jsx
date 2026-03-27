@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/usersSlice";
@@ -9,6 +9,9 @@ import ProfileArticles from "./components/ProfileArticles/ProfileArticles";
 import ProfileLogout from "./components/ProfileLogout/ProfileLogout";
 
 const ProfilePage = () => {
+  useEffect(() => {
+    document.title = "Щоденцi | Профіль";
+  }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.users);

@@ -23,7 +23,6 @@
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
-/* кнопка закрытия */
 .header__mobile-close {
   align-self: flex-end;
   background: none;

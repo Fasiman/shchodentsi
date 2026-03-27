@@ -1,55 +1,199 @@
 .author-profile {
-  padding: 60px 0;
+  padding: 80px 0;
+  min-height: 100vh;
 }
 
-.author-profile__image {
-  width: 200px;
-  height: 200px;
+.author-profile__header {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+  border-radius: 20px;
+  margin-bottom: 60px;
+}
+
+.author-profile__avatar {
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 30px;
 }
 
-.author-profile__box {
-  padding: 20px;
+.author-profile__info {
+  flex-grow: 1;
 }
 
 .author-profile__name {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: #1a1a1a;
 }
 
-.author-profile__saved {
-  font-size: 16px;
+.author-profile__stats {
+  display: flex;
+  gap: 25px;
+  font-size: 18px;
   color: #666;
 }
 
-@media (max-width: 768px) {
-  .author-profile {
-    padding: 40px 0;
-  }
-
-  .author-profile__image {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 20px;
-  }
-
-  .author-profile__name {
-    font-size: 22px;
-  }
+.author-profile__stats span {
+  border-radius: 10px;
+  font-weight: 600;
 }
 
-@media screen and (max-width: 1440px) {
-  .author-profile .container {
-    display: flex;
+.author-profile__subtitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #1a1a1a;
+}
+
+
+
+
+
+
+
+.author-profile__articles-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(335px, 1fr));
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+}
+
+.author-profile__article-item {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  display: flex; flex-direction: column;
+  background-color: #F1DEFF;
+}
+
+.author-profile__article-item:hover {
+  transform: translateY(-5px);
+}
+
+.author-profile__article-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+
+.author-profile__article-info {
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.author-profile__article-category {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.author-profile__article-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+.author-profile__article-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.author-profile__article-date {
+  font-size: 14px;
+}
+
+.author-profile__article-link {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #f1deff;
+  color: #9a00ff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.author-profile__article-link:hover {
+  background-color: #9a00ff;
+  color: #fff;
+} */
+
+.author-profile__no-articles {
+  font-size: 18px;
+  color: #666;
+  text-align: center;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.no-data-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  background: #F9F3FF;
+  border-radius: 20px;
+  border: 2px solid #DCC0F5;
+  margin-top: 20px;
+}
+
+.no-data-box__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.no-data-box__text {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 25px;
+  max-width: 400px;
+}
+
+.no-data-box__button {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #9a00ff;
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.no-data-box__button:hover {
+  background-color: #F1DEFF;
+  border: 1px solid #9a00ff;
+  color: #1a1a1a;
+}
+
+@media (max-width: 992px) {
+  .author-profile__header {
     flex-direction: column;
-    align-items: center;
+    text-align: center;
+    padding: 30px;
   }
 
-  .author-profile__box {
-    padding: 0;
-    text-align: center;
+  .author-profile__avatar {
+    width: 150px;
+    height: 150px;
   }
 }

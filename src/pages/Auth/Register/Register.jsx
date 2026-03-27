@@ -5,6 +5,7 @@ import Container from "../../../components/Container/Container";
 import { registerUser } from "../../../redux/usersSlice";
 
 import ExistsModal from "./components/ExistsModal/Exists";
+import EmptyFields from "../Login/components/EmptyFields/EmptyFields";
 import axios from "axios";
 
 import "./Register.css";
@@ -17,12 +18,21 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (currentUser) {
       navigate("/profile");
     }
   }, [currentUser, navigate]);
+
+  const showEmptyFieldsModal = (msg) => {
+    setErrorMessage(msg);
+    const emptyFieldsModal = document.querySelector(".empty-fields__backdrop");
+    if (emptyFieldsModal) {
+      emptyFieldsModal.style.display = "flex";
+    }
+  };
 
   const handleCheckEmailExists = async (email) => {
     if (!email.trim()) {
@@ -33,7 +43,7 @@ const Register = () => {
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(userEmail)) {
-      alert("Будь ласка, введіть правильну пошту");
+      showEmptyFieldsModal("Будь ласка, введіть правильну пошту");
       return null;
     }
 
@@ -52,22 +62,22 @@ const Register = () => {
     e.preventDefault();
 
     if (!name.trim()) {
-      alert("Будь ласка, введіть ім'я");
+      showEmptyFieldsModal("Будь ласка, введіть ім'я");
       return;
     }
 
     if (!email.trim()) {
-      alert("Будь ласка, введіть пошту");
+      showEmptyFieldsModal("Будь ласка, введіть пошту");
       return;
     }
 
     if (!password.trim()) {
-      alert("Будь ласка, введіть пароль");
+      showEmptyFieldsModal("Будь ласка, введіть пароль");
       return;
     }
 
     if (password.length < 3) {
-      alert("Пароль повинен мати мінімально 3 символи");
+      showEmptyFieldsModal("Пароль повинен мати мінімально 3 символи");
       return;
     }
 
@@ -99,7 +109,11 @@ const Register = () => {
 
   return (
     <main>
-      <ExistsModal isOpen={false} onClose={() => {}} />
+      <ExistsModal onClose={() => {
+        const backdrop = document.querySelector(".exists-modal__backdrop");
+        if (backdrop) backdrop.style.display = "none";
+      }} />
+      <EmptyFields message={errorMessage} />
       <section className="register__section">
         <Container>
           <h1 className="register__title">Реєстрація</h1>

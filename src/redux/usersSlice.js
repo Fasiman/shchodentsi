@@ -61,11 +61,10 @@ const usersSlice = createSlice({
             }
         } else if (user && user.password !== action.payload.password) {
             state.currentUser = null;
-            state.error = "Неправильний пароль";
-            alert("Неправильний пароль");
+            state.error = "wrong_password";
         } else {
             state.currentUser = null;
-            state.error = "Користувач не знайдений";
+            state.error = "user_not_found";
         }
     },
     logout(state) {
@@ -83,6 +82,9 @@ const usersSlice = createSlice({
         } catch (error) {
           console.error("Error updating current user in local storage", error);
         }
+    },
+    resetError(state) {
+      state.error = null;
     }
   },
   extraReducers: (builder) => {
@@ -120,5 +122,5 @@ const usersSlice = createSlice({
   },
 });
 
-export const { login, logout, updateCurrentUser } = usersSlice.actions;
+export const { login, logout, updateCurrentUser, resetError } = usersSlice.actions;
 export default usersSlice.reducer;

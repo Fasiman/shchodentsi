@@ -2,21 +2,24 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Container from "../../../components/Container/Container";
-import { fetchUsers, login } from "../../../redux/usersSlice";
+import { fetchUsers, login, resetError } from "../../../redux/usersSlice";
 
 import axios from "axios";
 
 import NoEmail from "./components/NoEmail/NoEmail";
+import WrongPassword from "./components/WrongPassword/WrongPassword";
+import EmptyFields from "./components/EmptyFields/EmptyFields";
 
 import "./Login.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser, error } = useSelector((state) => state.users);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -28,10 +31,28 @@ const Login = () => {
     }
   }, [currentUser, navigate]);
 
+  useEffect(() => {
+    if (error === "wrong_password") {
+      const wrongPasswordModal = document.querySelector(".wrong-password__backdrop");
+      if (wrongPasswordModal) {
+        wrongPasswordModal.style.display = "flex";
+      }
+      dispatch(resetError());
+    }
+  }, [error, dispatch]);
+
+  const showEmptyFieldsModal = (msg) => {
+    setErrorMessage(msg);
+    const emptyFieldsModal = document.querySelector(".empty-fields__backdrop");
+    if (emptyFieldsModal) {
+      emptyFieldsModal.style.display = "flex";
+    }
+  };
+
   const handleNoEmail = async () => {
     if (!email.trim()) {
-      alert("Будь ласка, введіть пошту");
-      return false;
+      showEmptyFieldsModal("Будь ласка, введіть пошту");
+      return null;
     }
 
     try {
@@ -49,6 +70,8 @@ const Login = () => {
     e.preventDefault();
 
     const emailExists = await handleNoEmail();
+    
+    if (emailExists === null) return;
 
     if (!emailExists) {
       const noEmailModal = document.querySelector(".no-email__backdrop");
@@ -57,7 +80,7 @@ const Login = () => {
       }
     } else {
       if (!password.trim()) {
-        alert("Будь ласка, введіть пароль");
+        showEmptyFieldsModal("Будь ласка, введіть пароль");
         return;
       }
       dispatch(login({ email: email.trim().toLowerCase(), password }));
@@ -67,6 +90,8 @@ const Login = () => {
   return (
     <main>
       <NoEmail />
+      <WrongPassword />
+      <EmptyFields message={errorMessage} />
       <section className="login__section">
         <Container>
           <h1 className="login__title">Вхід</h1>

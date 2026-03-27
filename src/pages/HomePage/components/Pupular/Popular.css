@@ -25,10 +25,13 @@
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .popular__image {
   width: 100%;
+  height: 420px; /* Увеличена высота */
+  object-fit: cover;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
@@ -79,10 +82,11 @@
   font-size: 14px;
   flex-grow: 1;
   margin-right: 8px;
-display: flex;
-justify-content: center;
-align-items: center;
-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  transition: all 0.3s ease;
 }
 
 .popular__more:hover {
@@ -99,23 +103,24 @@ color: #000;
   border-radius: 10px;
   border: 1px solid #00000026;
   background-color: #0000000d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #000; 
 }
 
-.popular__save-icon {
-  width: 24px;
-  height: 24px;
+.popular__save svg {
+  width: 15px;
+  height: 18px;
 }
 
-.popular__save:hover {
-  background-color: #9a00ff;
+.popular__save:hover:not(.popular__saved) {
+  background-color: #fff; 
+  color: #000;
 }
 
 .popular__saved {
   background-color: #9a00ff;
-}
-
-.popular__saved .popular__save-icon {
-  filter: brightness(0) invert(1);
+  color: #fff; 
 }
 
 @media screen and (min-width: 768px) {

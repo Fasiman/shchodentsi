@@ -22,6 +22,8 @@
 
 .popular-articles__image {
   width: 100%;
+  height: 420px;
+  object-fit: cover;
   display: block;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -72,7 +74,7 @@
   align-items: center;
   color: #000;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .popular-articles__button:hover {
@@ -90,24 +92,23 @@
   border: 1px solid #00000026;
   background-color: #0000000d;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  color: #000;
 }
 
-.popular-articles__save-icon {
-  width: 24px;
-  height: 24px;
+.popular-articles__save-btn svg {
+  width: 15px;
+  height: 18px;
 }
 
-.popular-articles__save-btn:hover {
-  background-color: #9a00ff;
+.popular-articles__save-btn:hover:not(.saved) {
+  background-color: #fff; 
+  color: #000; 
 }
 
 .popular-articles__save-btn.saved {
   background-color: #9a00ff;
-}
-
-.popular-articles__save-btn.saved .popular-articles__save-icon {
-  filter: brightness(0) invert(1);
+  color: #fff;
 }
 
 @media screen and (min-width: 768px) {
@@ -141,7 +142,6 @@
   }
 }
 
-/* Пагинация */
 .pagination {
   display: flex;
   justify-content: center;

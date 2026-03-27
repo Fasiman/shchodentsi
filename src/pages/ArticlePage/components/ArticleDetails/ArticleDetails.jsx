@@ -1,9 +1,18 @@
 import Container from "../../../../components/Container/Container";
 import "./ArticleDetails.css";
-
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import placeholder from "../../images/placeholder.png";
 
 const ArticleDetails = ({ article }) => {
+  const { items: users } = useSelector((state) => state.users);
+  
+  const foundUser = users.find((user) => user.id === article.ownerId);
+  const authorName = article.name || (foundUser ? foundUser.name : "Анонім");
+  const authorId = article.ownerId || (foundUser ? foundUser.id : null);
+
+  const articleIdentifier = article.articleId || article.id || article._id;
+
   return (
     <section className="article-details">
       <Container>
@@ -13,7 +22,13 @@ const ArticleDetails = ({ article }) => {
           </h1>
           <p className="article-details__author">
             Автор статті:{" "}
-            <span className="article-details__name"></span>
+            {authorId ? (
+              <Link to={`/authors/${authorId}`} className="article-details__name">
+                {authorName}
+              </Link>
+            ) : (
+              <span className="article-details__name">{authorName}</span>
+            )}
           </p>
           <p className="article-details__date">
             Опубліковано:{" "}

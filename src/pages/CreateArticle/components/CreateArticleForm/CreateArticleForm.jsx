@@ -11,9 +11,19 @@ const CreateArticleForm = () => {
   const { currentUser } = useSelector((state) => state.users);
   const { status } = useSelector((state) => state.articles);
 
+  const categories = [
+    "Продуктивність",
+    "Здоров’я",
+    "Особистісний розвиток",
+    "Відпочинок і сон",
+    "Харчування",
+    "Екологічні звички",
+    "Фінанси"
+  ];
+
   const [formData, setFormData] = useState({
     title: "",
-    category: "",
+    category: categories[0],
     text: "",
     image: "",
     imageBase64: "",
@@ -82,8 +92,8 @@ const CreateArticleForm = () => {
     }));
   };
 
-  const handleCancel = () => {
-    navigate("/");
+  const generateUniqueId = () => {
+    return 'art_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
   };
 
   const handleSubmit = async (e) => {
@@ -95,7 +105,7 @@ const CreateArticleForm = () => {
       return;
     }
 
-    if (!formData.title || !formData.category || !formData.text) {
+    if (!formData.title || !formData.text) {
       alert("Будь ласка, заповніть всі поля");
       return;
     }
@@ -104,21 +114,25 @@ const CreateArticleForm = () => {
     const dateStr = today.toISOString().split('T')[0];
 
     const articleData = {
+      db_article_id: generateUniqueId(), 
       img: formData.imageBase64 || "",
       title: formData.title,
       article: formData.text,
       category: formData.category,
       rate: 5,
+      saveCount: 0,
       ownerId: currentUser.id,
+      name: currentUser.name,
+      avatar: currentUser.avatar,
       date: dateStr,
+      createdAt: new Date().toISOString(),
     };
 
     try {
       await dispatch(createArticle(articleData)).unwrap();
-      alert("Стаття успішно опублікована!");
       navigate("/articles");
     } catch (error) {
-      alert("Помилка при створенні статті: " + error.message);
+      console.error("Помилка:", error);
     }
   };
 
@@ -156,15 +170,19 @@ const CreateArticleForm = () => {
             </li>
             <li className="create__item">
               <span className="create__name">Категорія</span>
-              <input
-                type="text"
+              <select
                 className="create__input"
-                placeholder="Категорія"
                 name="category"
                 value={formData.category}
                 onChange={handleInputChange}
                 required
-              />
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
             </li>
             <li className="create__item">
               <span className="create__name">Текст статті</span>
@@ -179,18 +197,8 @@ const CreateArticleForm = () => {
             </li>
           </ul>
           <div className="create__buttons">
-            <button
-              type="button"
-              className="create__button create__button-cancel"
-              onClick={handleCancel}
-            >
-              Відмінити
-            </button>
-            <button
-              type="submit"
-              className="create__button create__button-save"
-              disabled={status === "loading"}
-            >
+            <button type="button" className="create__button create__button-cancel" onClick={() => navigate("/")}>Відмінити</button>
+            <button type="submit" className="create__button create__button-save" disabled={status === "loading"}>
               {status === "loading" ? "Збереження..." : "Зберегти"}
             </button>
           </div>

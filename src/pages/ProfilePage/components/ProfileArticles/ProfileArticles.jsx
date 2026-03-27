@@ -7,8 +7,6 @@ import { updateCurrentUser } from "../../../../redux/usersSlice";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import saved from "../../../HomePage/components/Pupular/images/logo.svg"
-
 const ProfileArticles = () => {
   const [activeTab, setActiveTab] = useState('saved');
   const dispatch = useDispatch();
@@ -25,32 +23,13 @@ const ProfileArticles = () => {
     setActiveTab(tab);
   };
 
-  const removeArticle = (articleId) => {
-    if (!currentUser) {
-      return;
-    }
-    const updatedUser = {
-      ...currentUser,
-      savedArticles: currentUser.savedArticles.filter(sa => sa.id !== articleId),
-      saved: Math.max((currentUser.saved || 0) - 1, 0)
-    };
-    axios.patch(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
-      savedArticles: updatedUser.savedArticles,
-      saved: updatedUser.saved,
-    })
-      .then((response) => {
-        console.log("Article removed:", response.data);
-        dispatch(updateCurrentUser(updatedUser));
-      })
-      .catch((error) => {
-        console.error("Error removing article:", error);
-      });
-  };
-
   const displayedArticles = activeTab === 'my'
-    ? items.filter(article => article.ownerId === currentUser?.id)
+    ? items.filter(article => String(article.ownerId) === String(currentUser?.id))
     : activeTab === 'saved'
-    ? items.filter(article => currentUser?.savedArticles?.some(sa => sa.id === (article._id?.$oid || article._id)))
+    ? items.filter(article => {
+        const uniqueId = article.db_article_id || article.articleId || article.id;
+        return currentUser?.saved_art_ids?.includes(uniqueId);
+      })
     : [];
 
   return (
@@ -72,47 +51,55 @@ const ProfileArticles = () => {
             Мої статті
           </button>
         </div>
-        <ul className="profile-articles__list">
-          {displayedArticles.map((article) => (
-            <li className="profile-articles__item" key={article._id?.$oid || article._id || article.id}>
-              <img
-                className="profile-articles__image"
-                src={article.img}
-                alt={article.title}
-              />
-              <div className="profile-articles__content">
-                <span className="profile-articles__category">
-                  {article.category || "Категорія"}
-                </span>
-                <h4 className="profile-articles__name">{article.title}</h4>
-                <p className="profile-articles__meta">
-                  {article.date
-                    ? new Date(article.date).toLocaleDateString()
-                    : "Дата невідома"}
-                  {" • "}
-                  {article.rate || 0}
-                </p>
-              </div>
-              <div className="profile-articles__actions">
-                <Link
-                  to={`/articles/${article._id?.$oid || article._id || article.id}`}
-                  className="profile-articles__button"
-                  onClick={() => dispatch(setCurrentArticle(article))}
-                >
-                  Переглянути статтю
-                </Link>
-                {activeTab === 'saved' && (
-                  <button
-                    className="profile-articles__remove"
-                    onClick={() => removeArticle(article._id?.$oid || article._id || article.id)}
+        
+        {displayedArticles.length > 0 ? (
+          <ul className="profile-articles__list">
+            {displayedArticles.map((article) => {
+               const uniqueId = article.db_article_id || article.articleId || article.id;
+               return (
+              <li className="profile-articles__item" key={uniqueId}>
+                <img
+                  className="profile-articles__image"
+                  src={article.img}
+                  alt={article.title}
+                />
+                <div className="profile-articles__content">
+                  <span className="profile-articles__category">
+                    {article.category || "Категорія"}
+                  </span>
+                  <h4 className="profile-articles__name">{article.title}</h4>
+                  <p className="profile-articles__meta">
+                    {article.date
+                      ? new Date(article.date).toLocaleDateString()
+                      : "Дата невідома"}
+                    {" • "}
+                    {article.saveCount || 0}
+                  </p>
+                </div>
+                <div className="profile-articles__actions">
+                  <Link
+                    to={`/articles/${uniqueId}`}
+                    className="profile-articles__button"
+                    onClick={() => dispatch(setCurrentArticle(article))}
                   >
-                    <img src={saved} alt="remove" />
-                  </button>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
+                    Переглянути статтю
+                  </Link>
+                </div>
+              </li>
+            )})}
+          </ul>
+        ) : (
+          <div className="no-data-box">
+            <h3 className="no-data-box__title">
+              {activeTab === 'saved' ? "У вас немає збережених статтей" : "Ви ще не написали жодної статті"}
+            </h3>
+            <p className="no-data-box__text">
+              {activeTab === 'saved' 
+                ? "Зберігайте цікаві історії, щоб вони завжди були під рукою." 
+                : "Почніть ділитися своїми думками з іншими прямо зараз!"}
+            </p>
+          </div>
+        )}
       </Container>
     </section>
   );

@@ -33,16 +33,31 @@
 }
 
 .create__input {
-  padding: 8px;
+  padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.create__input:focus {
+  border-color: #9a00ff;
+  box-shadow: 0 0 5px rgba(154, 0, 255, 0.2);
 }
 
 .create__textarea {
-  padding: 8px;
+  padding: 12px;
   border-radius: 10px;
   border: 1px solid #ccc;
   height: 215px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  resize: vertical;
+}
+
+.create__textarea:focus {
+  border-color: #9a00ff;
+  box-shadow: 0 0 5px rgba(154, 0, 255, 0.2);
 }
 
 .create__buttons {
@@ -52,10 +67,7 @@
 }
 
 .create__button {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 57px;
-  padding-right: 57px;
+  padding: 12px 57px;
   max-width: 203px;
   width: 100%;
   background-color: #9a00ff;
@@ -63,7 +75,14 @@
   border-radius: 10px;
   border: 1px solid #9a00ff;
   cursor: pointer;
-  transition: opacity 0.2s;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.create__button:hover:not(:disabled) {
+  background-color: #7a00cc;
+  border-color: #7a00cc;
+  transform: translateY(-2px);
 }
 
 .create__button:disabled {
@@ -72,9 +91,13 @@
 }
 
 .create__button-cancel {
-  background-color: #0000000d;
+  background-color: #f3f3f3;
   color: #000;
   border: 1px solid #ccc;
+}
+
+.create__button-cancel:hover {
+  background-color: #e0e0e0;
 }
 
 .create__preview {
@@ -86,7 +109,9 @@
   max-width: 100%;
   height: auto;
   border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
 @media screen and (min-width: 768px) {
     .create {
         padding-top: 80px;
@@ -107,10 +132,7 @@
   .create__title {
     font-size: 48px;
   }
-
-  
 }
-
 
 @media screen and (max-width: 1440px) {
     .create__buttons{
@@ -118,6 +140,5 @@
     gap: 16px;
     width: 100%;
     justify-content: center;
-    
   }
 }

@@ -17,12 +17,25 @@ export const fetchArticles = createAsyncThunk(
 
 export const fetchArticleById = createAsyncThunk(
   "articles/fetchArticleById",
-  async (id) => {
+  async (articleId) => {
     try {
-      const { data } = await axios.get(`${API_URL}/${id}`);
+      const { data } = await axios.get(`${API_URL}/${articleId}`);
       return data;
     } catch (error) {
       console.log(error);
+    }
+  }
+);
+
+export const updateArticleSaves = createAsyncThunk(
+  "articles/updateArticleSaves",
+  async ({ id, saveCount }) => {
+    try {
+      const { data } = await axios.put(`${API_URL}/${id}`, { saveCount });
+      return data;
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
   }
 );
@@ -96,6 +109,12 @@ const articlesSlice = createSlice({
       .addCase(fetchArticleById.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      .addCase(updateArticleSaves.fulfilled, (state, action) => {
+        const index = state.items.findIndex(item => item.id === action.payload.id);
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
       })
       .addCase(createArticle.pending, (state) => {
         state.status = "loading";

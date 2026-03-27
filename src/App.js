@@ -15,8 +15,10 @@ import Login from "./pages/Auth/Login/Login";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import MobileMenu from "./components/Header/components/MobileMenu/MobileMenu";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchUsers, logout } from "./redux/usersSlice";
 
 const PrivateRoute = ({ children }) => {
   const { currentUser } = useSelector((state) => state.users);
@@ -24,9 +26,27 @@ const PrivateRoute = ({ children }) => {
 };
 
 function App() {
+  const dispatch = useDispatch();
+  const { currentUser, items: users, status } = useSelector((state) => state.users);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (currentUser && status === "succeeded" && users.length > 0) {
+      const serverUser = users.find(u => String(u.id) === String(currentUser.id));
+      
+      if (!serverUser || serverUser.password !== currentUser.password) {
+        console.warn("Account validation failed. Logging out...");
+        dispatch(logout());
+      }
+    }
+  }, [currentUser, users, status, dispatch]);
+
   return (
     <div className="App">
-      <ScrollToTop /> {/* Додаємо ScrollToTop */}
+      <ScrollToTop />
       <Header />
       <MobileMenu />
       <Routes>

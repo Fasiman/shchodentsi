@@ -1,6 +1,13 @@
+
+
 .article-details {
   padding-top: 48px;
   text-align: center;
+  display: block;
+}
+
+.article-details .container{
+  display: block;
 }
 
 .articles__title {
@@ -13,9 +20,9 @@
   max-width: 802px;
   width: 100%;
   flex-wrap: wrap;
-  justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  justify-content: center;
 }
 
 .articles__choose-item-btn {
@@ -27,6 +34,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  
 }
 
 .articles__choose-item-btn:focus,
@@ -58,5 +66,9 @@
 
   .articles__title {
     font-size: 48px;
+  }
+
+  .articles__choose{
+    justify-content: center;
   }
 }

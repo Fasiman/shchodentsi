@@ -1,6 +1,7 @@
 import Container from "../../../../components/Container/Container";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCurrentUser } from "../../../../redux/usersSlice";
+import { updateArticleSaves } from "../../../../redux/articlesSlice";
 import axios from "axios";
 import "./HabbitsArticles.css";
 
@@ -8,55 +9,46 @@ const HabbitsArticles = ({ article }) => {
   const currentUser = useSelector((state) => state.users.currentUser);
   const dispatch = useDispatch();
 
-  const isSaved = currentUser?.savedArticles?.some(sa => sa.id === (article._id?.$oid || article._id));
-
-  const articleOwnerId = article.ownerId?.$oid || article.ownerId;
-  const isOwner = currentUser?.id === articleOwnerId;
+  const uniqueId = article.db_article_id || article.articleId || article.id;
+  
+  const isSaved = currentUser?.saved_art_ids?.includes(uniqueId);
+  const isOwner = currentUser && String(article.ownerId) === String(currentUser.id);
 
   const saveArticle = () => {
-    if (!currentUser) {
-      return;
-    }
-    const savedArticle = { id: article._id?.$oid || article._id };
+    if (!currentUser || !uniqueId) return;
+
+    const currentSaved = (currentUser.saved_art_ids || []);
+    if (currentSaved.includes(uniqueId)) return;
+
     const updatedUser = {
       ...currentUser,
-      savedArticles: [...(currentUser.savedArticles || []), savedArticle],
-      saved: (currentUser.saved || 0) + 1
+      saved_art_ids: [...currentSaved, uniqueId],
     };
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
-      savedArticles: updatedUser.savedArticles,
-      saved: updatedUser.saved,
-    })
-      .then((response) => {
-        console.log("Article saved:", response.data);
-        dispatch(updateCurrentUser(updatedUser));
-      })
-      .catch((error) => {
-        console.error("Error saving article:", error);
-      });
+
+    dispatch(updateCurrentUser(updatedUser));
+    
+    const newSaveCount = (article.saveCount || 0) + 1;
+    dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
+
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser);
   };
 
   const removeArticle = () => {
-    if (!currentUser) {
-      return;
-    }
+    if (!currentUser || !uniqueId) return;
+
     const updatedUser = {
       ...currentUser,
-      savedArticles: currentUser.savedArticles.filter(sa => sa.id !== (article._id?.$oid || article._id)),
-      saved: Math.max((currentUser.saved || 0) - 1, 0)
+      saved_art_ids: (currentUser.saved_art_ids || []).filter(id => id !== uniqueId),
     };
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, {
-      savedArticles: updatedUser.savedArticles,
-      saved: updatedUser.saved,
-    })
-      .then((response) => {
-        console.log("Article removed:", response.data);
-        dispatch(updateCurrentUser(updatedUser));
-      })
-      .catch((error) => {
-        console.error("Error removing article:", error);
-      });
+
+    dispatch(updateCurrentUser(updatedUser));
+
+    const newSaveCount = Math.max((article.saveCount || 0) - 1, 0);
+    dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
+
+    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser);
   };
+
   return (
     <section className="habbits-articles">
       <Container>

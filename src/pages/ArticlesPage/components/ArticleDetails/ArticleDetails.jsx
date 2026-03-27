@@ -21,6 +21,7 @@ const ArticleDetails = () => {
 
   return (
     <section className="article-details">
+      <h1 className="articles__title">Статті</h1>
       <Container>
        
         <ul className="articles__choose">
