@@ -11,7 +11,7 @@ const ExistsModal = ({ onClose }) => {
         <button
           className="exists-modal__close"
           onClick={onClose}
-          aria-label="close modal"
+          aria-label="Закрити модальне вікно"
         >
           <IoClose />
         </button>
