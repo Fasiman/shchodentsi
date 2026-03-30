@@ -138,9 +138,10 @@
   justify-content: center;
   text-align: center;
   padding: 60px 20px;
+  margin-bottom: 64px;
   background: #F9F3FF;
   border-radius: 20px;
-  border: 2px dashed #DCC0F5;
+  border: 2px solid #DCC0F5;
   margin-top: 40px;
   width: 100%;
 }

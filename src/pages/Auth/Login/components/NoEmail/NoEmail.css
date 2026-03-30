@@ -48,17 +48,16 @@
 }
 
 .no-email__link:hover {
-   background-color: #F1DEFF;
-    border-color: #7a00b3;
-    color: #000;
+  background-color: #f1deff;
+  border-color: #7a00b3;
+  color: #000;
 }
 
-
-.no-email__close{
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 30px;
-    background: none;
-    border: none;
+.no-email__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 30px;
+  background: none;
+  border: none;
 }

@@ -58,48 +58,48 @@ const AuthorProfilePage = () => {
 
   return (
     <main>
-      <section className="author-profile">
+      <section className="profile">
         <Container>
-          <div className="author-profile__header">
+          <div className="profile__header">
             <img
-              className="author-profile__avatar"
+              className="profile__avatar"
               src={user.avatar}
               alt={user.name}
             />
-            <div className="author-profile__info">
-              <h1 className="author-profile__name">{user.name}</h1>
-              <p className="author-profile__stats">
+            <div className="profile__info">
+              <h1 className="profile__name">{user.name}</h1> 
+              <p className="profile__stats">
                 <span>Статей: {userArticles.length}</span>
                 <span>Збережень: {user.saved || 0}</span>
               </p>
             </div>
           </div>
 
-          <div className="author-profile__content">
-            <h2 className="author-profile__subtitle">Статті автора</h2>
+          <div className="profile__content">
+            <h2 className="profile__subtitle">Статті автора</h2>
             {userArticles.length > 0 ? (
-              <ul className="author-profile__articles-list">
+              <ul className="profile__articles-list">
                 {userArticles.map((article) => {
                   const articleIdentifier = article.db_article_id || article.articleId || article.id || article._id;
                   return (
-                    <li className="author-profile__article-item" key={articleIdentifier}>
+                    <li className="profile__article-item" key={articleIdentifier}>
                       <img
                         src={article.img || testImage}
-                        className="author-profile__article-image"
+                        className="profile__article-image"
                         alt={article.title}
                       />
-                      <div className="author-profile__article-info">
-                        <span className="author-profile__article-category">
+                      <div className="profile__article-info">
+                        <span className="profile__article-category">
                           {article.category || "Категорія"}
                         </span>
-                        <h4 className="author-profile__article-title">{article.title}</h4>
-                        <div className="author-profile__article-footer">
-                           <p className="author-profile__article-date">
+                        <h4 className="profile__article-title">{article.title}</h4>
+                        <div className="profile__article-footer">
+                           <p className="profile__article-date">
                             {article.date ? new Date(article.date).toLocaleDateString() : "Дата невідома"}
                           </p>
                           <Link
                             to={`/articles/${articleIdentifier}`}
-                            className="author-profile__article-link"
+                            className="profile__article-link"
                             onClick={() => dispatch(setCurrentArticle(article))}
                           >
                             Читати далі
@@ -113,7 +113,7 @@ const AuthorProfilePage = () => {
             ) : (
               <div className="no-data-box">
                 <h3 className="no-data-box__title">Цей користувач ще не публікував статей</h3>
-                <p className="no-data-box__text">Ви можете переглянути цікаві історії інших авторів.</p>
+                {/* <p className="no-data-box__text">Ви можете переглянути цікаві історії інших авторів.</p> */}
                 <Link to="/articles" className="no-data-box__button">
                   Перейти до всіх статей
                 </Link>
