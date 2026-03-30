@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 const NoEmail = () => {
   const handleClose = () => {
     const backdrop = document.querySelector(".no-email__backdrop");
-    backdrop.style.display = "none";
-    document.location.reload();
+    if (backdrop) {
+      backdrop.style.display = "none";
+    }
   };
   return (
     <div className="no-email__backdrop">

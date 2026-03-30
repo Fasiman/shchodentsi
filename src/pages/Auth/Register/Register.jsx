@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Container from "../../../components/Container/Container";
+import { Link } from "react-router-dom";
 import { registerUser } from "../../../redux/usersSlice";
 
 import ExistsModal from "./components/ExistsModal/Exists";
@@ -158,10 +159,10 @@ const Register = () => {
               Зареєструватись
             </button>
             <p className="register__have">
-              Вже є аккаунт?{" "}
-              <a href={"./login"} className="register__link">
+              Вже є акаунт?{" "}
+              <Link to="/auth/login" className="register__link">
                 Авторизуватись
-              </a>
+              </Link>
             </p>
           </form>
         </Container>

@@ -5,25 +5,27 @@ const API_URL = "https://696f45bda06046ce6185fca4.mockapi.io/users";
 
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(API_URL);
       return data;
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching users:", error.message);
+      return rejectWithValue(error.message || "Failed to fetch users");
     }
   }
 );
 
 export const registerUser = createAsyncThunk(
   "users/registerUser",
-  async (userData) => {
+  async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(API_URL, userData);
       
       return data;
     } catch (error) {
-      console.log(error);
+      console.error("Error registering user:", error.message);
+      return rejectWithValue(error.message || "Failed to register user");
     }
   }
 );

@@ -5,7 +5,7 @@ const CreateArticle = () => {
 
     useEffect(() => {
         document.title = "Щоденці | Створення історії"
-    })
+    }, [])
     return (
         <main>
              <CreateArticleForm />

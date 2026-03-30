@@ -7,7 +7,7 @@ import Popular from "./components/Popular/Popular";
 const ArticlesPage = () => {
 
   useEffect(() => {
-    document.title = "Щоденцi | Статтi";
+    document.title = "Щоденці | Статті";
   }, []);
   return (
     <main>

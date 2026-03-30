@@ -10,7 +10,7 @@ import ProfileLogout from "./components/ProfileLogout/ProfileLogout";
 
 const ProfilePage = () => {
   useEffect(() => {
-    document.title = "Щоденцi | Профіль";
+    document.title = "Щоденці | Профіль";
   }, []);
   const dispatch = useDispatch();
   const navigate = useNavigate();

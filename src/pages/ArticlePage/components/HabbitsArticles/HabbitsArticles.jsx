@@ -61,7 +61,11 @@ const HabbitsArticles = ({ article }) => {
           <p className="habbits-articles__description">
             Вона буде доступна у вашому профілі у розділі збережене
           </p>
-          <button className="habbits-articles__button" onClick={isSaved ? removeArticle : saveArticle}>
+          <button 
+            className="habbits-articles__button" 
+            onClick={isSaved ? removeArticle : saveArticle}
+            aria-label={isSaved ? "Видалити статтю з збережених" : "Зберегти статтю"}
+          >
             {isSaved ? "Видалити з збережених" : "Зберегти"}
           </button>
         </div>

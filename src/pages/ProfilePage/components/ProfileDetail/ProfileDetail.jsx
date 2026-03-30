@@ -101,7 +101,7 @@ const ProfileDetail = ({ onLogoutClick }) => {
   return (
     <section className="profile-detail">
       {isEditing && (
-      <div className="profile__backdrop" style={{ display: 'flex' }} onClick={handleCloseEdit}>
+      <div className="profile__backdrop profile__backdrop--open" onClick={handleCloseEdit}>
         <form className="profile__form" onSubmit={handleSave}>
           <h2 className="profile__change">Давайте познайомимось ближче</h2>
           <div className="profile__photo">
@@ -123,8 +123,8 @@ const ProfileDetail = ({ onLogoutClick }) => {
               </button>
             </div>
           </div>
-          <button className="profile__save" type="submit" style={{ backgroundColor: '#9a00ff', cursor: 'pointer' }}>Зберегти</button>
-          <button type="button" onClick={() => setIsEditing(false)} style={{ marginTop: '10px', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '14px', color: '#666' }}>Скасувати</button>
+          <button className="profile__save profile__save--primary" type="submit">Зберегти</button>
+          <button className="profile__cancel" type="button" onClick={() => setIsEditing(false)}>Скасувати</button>
         </form>
       </div>
       )}
@@ -133,12 +133,12 @@ const ProfileDetail = ({ onLogoutClick }) => {
         <img
           className="profile-detail__image"
           src={currentUser.avatar}
-          alt=""
+          alt={currentUser.name}
         />
         <div className="profile-detail__box">
           <h4 className="profile-detail__name">{currentUser.name}</h4>
           <p className="profile-detail__saved">
-            Збережень: {currentUser.saved}
+            Збережень: {currentUser.saved_art_ids ? currentUser.saved_art_ids.length : 0}
           </p>
           <button type="button" className="profile-detail__edit" onClick={handleEditClick}>
             Редагувати

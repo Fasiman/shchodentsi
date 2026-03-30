@@ -89,7 +89,7 @@ const Header = () => {
             )}
           </ul>
 
-          <button className="header__hamburger-button" onClick={openMobileMenu}>
+          <button className="header__hamburger-button" onClick={openMobileMenu} aria-label="Відкрити мобільне меню">
             <RxHamburgerMenu />
           </button>
         </Container>

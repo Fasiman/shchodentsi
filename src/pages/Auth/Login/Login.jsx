@@ -127,7 +127,7 @@ const Login = () => {
               Увійти
             </button>
             <p className="login__have">
-              Немає аккаунту?{" "}
+              Немає акаунту?{" "}
               <Link to={"/auth/register"} className="login__link">
                 Зареєструватись
               </Link>

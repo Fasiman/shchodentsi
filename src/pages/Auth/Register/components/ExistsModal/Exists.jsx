@@ -19,7 +19,7 @@ const ExistsModal = ({ onClose }) => {
           Користувач з такою поштою вже існує
         </h2>
         <p className="exists-modal__description">
-          Спробуйте іншу пошту або авторизуйтесь, якщо у вас вже є аккаунт.
+          Спробуйте іншу пошту або авторизуйтесь, якщо у вас вже є акаунт.
         </p>
         <Link to="/auth/login" className="exists-modal__button">
           Авторизуватися

@@ -5,51 +5,53 @@ const API_URL = "https://696f45bda06046ce6185fca4.mockapi.io/articles";
 
 export const fetchArticles = createAsyncThunk(
   "articles/fetchArticles",
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(API_URL);
       return data;
     } catch (error) {
-      console.log(error)
+      console.error("Error fetching articles:", error.message);
+      return rejectWithValue(error.message || "Failed to fetch articles");
     }
   },
 );
 
 export const fetchArticleById = createAsyncThunk(
   "articles/fetchArticleById",
-  async (articleId) => {
+  async (articleId, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`${API_URL}/${articleId}`);
       return data;
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching article:", error.message);
+      return rejectWithValue(error.message || "Failed to fetch article");
     }
   }
 );
 
 export const updateArticleSaves = createAsyncThunk(
   "articles/updateArticleSaves",
-  async ({ id, saveCount }) => {
+  async ({ id, saveCount }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(`${API_URL}/${id}`, { saveCount });
       return data;
     } catch (error) {
-      console.log(error);
-      throw error;
+      console.error("Error updating article saves:", error.message);
+      return rejectWithValue(error.message || "Failed to update article");
     }
   }
 );
 
 export const createArticle = createAsyncThunk(
   "articles/createArticle",
-  async (articleData, { dispatch }) => {
+  async (articleData, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await axios.post(API_URL, articleData);
       dispatch(fetchArticles());
       return data;
     } catch (error) {
-      console.log(error);
-      throw error;
+      console.error("Error creating article:", error.message);
+      return rejectWithValue(error.message || "Failed to create article");
     }
   }
 );
