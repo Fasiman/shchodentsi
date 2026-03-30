@@ -111,6 +111,12 @@
   color: #fff;
 }
 
+@media screen and (min-width: 375px) {
+  .popular-articles__item {
+    max-width: none;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .popular-articles {
     padding-top: 80px;

@@ -39,6 +39,12 @@
   line-height: 1.5;
 }
 
+@media screen and (min-width: 375px) {
+  .why__title {
+    font-size: 28px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .why {
     padding-top: 80px;

@@ -159,17 +159,10 @@
   max-width: 400px;
 }
 
-@media screen and (max-width: 1440px) {
-  .profile-articles__switch {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  .profile-articles__variant {
-    width: 100%;
-  }
-  .profile-articles__active {
-    width: 100%;
+
+@media screen and (min-width: 375px) {
+  .profile-articles__item {
+    max-width: none;
   }
 }
 

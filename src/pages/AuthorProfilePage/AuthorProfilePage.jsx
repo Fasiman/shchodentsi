@@ -113,7 +113,6 @@ const AuthorProfilePage = () => {
             ) : (
               <div className="no-data-box">
                 <h3 className="no-data-box__title">Цей користувач ще не публікував статей</h3>
-                {/* <p className="no-data-box__text">Ви можете переглянути цікаві історії інших авторів.</p> */}
                 <Link to="/articles" className="no-data-box__button">
                   Перейти до всіх статей
                 </Link>

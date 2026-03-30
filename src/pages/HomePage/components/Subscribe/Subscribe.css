@@ -40,6 +40,12 @@
   color: #000;
 }
 
+@media screen and (min-width: 375px) {
+  .subscribe__title {
+    font-size: 28px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .subscribe {
     padding-top: 80px;

@@ -158,13 +158,6 @@
   margin-bottom: 10px;
 }
 
-/* .no-data-box__text {
-  font-size: 16px;
-  color: #777;
-  margin-bottom: 25px;
-  max-width: 400px;
-} */
-
 .no-data-box__button {
   display: inline-block;
   padding: 12px 30px;
@@ -183,16 +176,3 @@
   border: 1px solid #9a00ff;
   color: #1a1a1a;
 }
-/* 
-@media (max-width: 768px) {
-  .profile__header {
-    flex-direction: column;
-    text-align: center;
-    padding: 30px;
-  }
-
-  .profile__avatar {
-    width: 150px;
-    height: 150px;
-  }
-} */

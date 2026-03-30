@@ -9,8 +9,7 @@
 }
 
 .authors-page__list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: block;
   gap: 24px;
   margin-top: 24px;
 }
@@ -48,8 +47,25 @@
 }
 
 
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 375px) {
+  .authors-page__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 768px) {
   .authors-page__list{
-    display: block;
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .authors-page__list{
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 100%;
   }
 }

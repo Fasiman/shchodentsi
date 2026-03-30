@@ -81,16 +81,3 @@
   border: 1px solid #9A00FF;
   color: #000;
 }
-
-
-
-@media screen and (max-width: 1440px) {
-  .profile-logout__buttons{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: center;
-     align-items: center;
-
-  }
-}
