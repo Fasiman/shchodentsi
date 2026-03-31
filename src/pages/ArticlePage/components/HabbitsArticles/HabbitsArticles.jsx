@@ -4,6 +4,7 @@ import { updateCurrentUser } from "../../../../redux/usersSlice";
 import { updateArticleSaves } from "../../../../redux/articlesSlice";
 import axios from "axios";
 import "./HabbitsArticles.css";
+import { useEffect } from "react";
 
 const HabbitsArticles = ({ article }) => {
   const currentUser = useSelector((state) => state.users.currentUser);
@@ -13,6 +14,20 @@ const HabbitsArticles = ({ article }) => {
   
   const isSaved = currentUser?.saved_art_ids?.includes(uniqueId);
   const isOwner = currentUser && String(article.ownerId) === String(currentUser.id);
+
+  useEffect(() => {
+    const user = localStorage.getItem("currentUser");
+    console.log("Current user from localStorage:", user);
+    if (user) {
+      const saveBox = document.querySelector(".habbits-articles__box");
+      saveBox.style.display = "block";
+    } else {
+      const saveBox = document.querySelector(".habbits-articles__box");
+      if (saveBox) {
+        saveBox.style.display = "none";
+      }
+    }
+  }, []);
 
   const saveArticle = () => {
     if (!currentUser || !uniqueId) return;
