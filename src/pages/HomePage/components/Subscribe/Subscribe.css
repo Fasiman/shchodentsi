@@ -25,13 +25,15 @@
 }
 
 .subscribe__button {
-  padding: 12px 24px;
+  padding: 12px 10px;
   background-color: #9a00ff;
   border-radius: 10px;
   border: none;
   color: #ffffff;
   cursor: pointer;
   display: flex;
+  text-align: center;
+  max-width: 175px;
 }
 
 .subscribe__button:hover {
@@ -92,8 +94,7 @@
     margin-top: 24px;
   }
 
-  .subscribe__button {
+  /* .subscribe__button {
     margin-top: 32px;
-    width: 200px;
-  }
+  } */
 }
