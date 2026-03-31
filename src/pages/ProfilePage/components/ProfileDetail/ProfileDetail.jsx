@@ -20,12 +20,15 @@ const ProfileDetail = ({ onLogoutClick }) => {
   const handleEditClick = () => {
     setAvatarPreview(currentUser.avatar);
     setIsEditing(true);
+    console.log(isEditing)
+    const backdrop = document.querySelector(".profile__backdrop");
+    backdrop.style.display = "flex";
+
   };
 
   const handleCloseEdit = (e) => {
-      if (e.target.classList.contains('profile__backdrop')) {
-        setIsEditing(false);
-      }
+        const backdrop = document.querySelector(".profile__backdrop");
+    backdrop.style.display = "none"
   };
 
   const handleFileChange = (e) => {
@@ -100,7 +103,6 @@ const ProfileDetail = ({ onLogoutClick }) => {
 
   return (
     <section className="profile-detail">
-      {isEditing && (
       <div className="profile__backdrop profile__backdrop--open" onClick={handleCloseEdit}>
         <form className="profile__form" onSubmit={handleSave}>
           <h2 className="profile__change">Давайте познайомимось ближче</h2>
@@ -127,7 +129,6 @@ const ProfileDetail = ({ onLogoutClick }) => {
           <button className="profile__cancel" type="button" onClick={() => setIsEditing(false)}>Скасувати</button>
         </form>
       </div>
-      )}
 
       <Container>
         <img
