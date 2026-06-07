@@ -16,7 +16,7 @@ const Popular = () => {
   const dispatch = useDispatch();
   const { items, status } = useSelector((state) => state.articles);
   const currentUser = useSelector((state) => state.users.currentUser);
-
+console.log(items)
   useEffect(() => {
     if (status === "idle") dispatch(fetchArticles());
   }, [status, dispatch]);

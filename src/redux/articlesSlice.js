@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "https://696f45bda06046ce6185fca4.mockapi.io/articles";
+const API_URL = "http://localhost:1487/";
 
 export const fetchArticles = createAsyncThunk(
   "articles/fetchArticles",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(API_URL);
+      console.log(data)
       return data;
     } catch (error) {
       console.error("Error fetching articles:", error.message);
