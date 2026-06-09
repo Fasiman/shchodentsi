@@ -50,7 +50,7 @@ const Register = () => {
 
     try {
       const response = await axios.get(
-        `https://696f45bda06046ce6185fca4.mockapi.io/users?email=${userEmail}`
+        `http://localhost:1487/users?email=${userEmail}`
       );
       return response.data.length > 0;
     } catch (error) {

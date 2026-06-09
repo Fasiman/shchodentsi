@@ -1,15 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:1487/";
+const API_URL = "http://localhost:1487/articles/";
+
+const parseArticleList = (data) => {
+  if (Array.isArray(data)) {
+    return data;
+  }
+  if (data && typeof data === "object") {
+    if (Array.isArray(data.articles)) return data.articles;
+    if (Array.isArray(data.items)) return data.items;
+    if (Array.isArray(data.data)) return data.data;
+  }
+  return [];
+};
 
 export const fetchArticles = createAsyncThunk(
   "articles/fetchArticles",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(API_URL);
-      console.log(data)
-      return data;
+      return parseArticleList(data);
     } catch (error) {
       console.error("Error fetching articles:", error.message);
       return rejectWithValue(error.message || "Failed to fetch articles");
@@ -21,9 +32,25 @@ export const fetchArticleById = createAsyncThunk(
   "articles/fetchArticleById",
   async (articleId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`${API_URL}/${articleId}`);
+      const { data } = await axios.get(`${API_URL}${articleId}`);
       return data;
     } catch (error) {
+      if (error.response && (error.response.status === 404 || error.response.status === 400)) {
+        try {
+          const { data: listData } = await axios.get(API_URL);
+          const list = parseArticleList(listData);
+          const found = list.find(
+            (item) =>
+              String(item.id) === String(articleId) ||
+              String(item.db_article_id) === String(articleId) ||
+              String(item.articleId) === String(articleId) ||
+              String(item._id) === String(articleId),
+          );
+          if (found) return found;
+        } catch (fallbackError) {
+          console.error("Error fetching articles fallback:", fallbackError.message);
+        }
+      }
       console.error("Error fetching article:", error.message);
       return rejectWithValue(error.message || "Failed to fetch article");
     }
@@ -114,9 +141,12 @@ const articlesSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(updateArticleSaves.fulfilled, (state, action) => {
-        const index = state.items.findIndex(item => item.id === action.payload.id);
+        const index = state.items.findIndex(item => String(item.id) === String(action.payload.id));
         if (index !== -1) {
           state.items[index] = action.payload;
+        }
+        if (state.currentArticle && String(state.currentArticle.id) === String(action.payload.id)) {
+          state.currentArticle = action.payload;
         }
       })
       .addCase(createArticle.pending, (state) => {

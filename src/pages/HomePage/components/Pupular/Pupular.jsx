@@ -23,7 +23,7 @@ console.log(items)
 
   const saveArticle = (article) => {
     if (!currentUser || !article) return;
-    const uniqueId = article.db_article_id || article.articleId || article.id;
+    const uniqueId = article.id || article.db_article_id || article.articleId;
 
     const currentSaved = (currentUser.saved_art_ids || []);
     if (currentSaved.includes(uniqueId)) return;
@@ -36,12 +36,12 @@ console.log(items)
     dispatch(updateCurrentUser(updatedUser));
     const newSaveCount = (article.saveCount || 0) + 1;
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
   };
 
   const removeArticle = (article) => {
     if (!currentUser || !article) return;
-    const uniqueId = article.db_article_id || article.articleId || article.id;
+    const uniqueId = article.id || article.db_article_id || article.articleId;
 
     const updatedUser = {
       ...currentUser,
@@ -51,7 +51,7 @@ console.log(items)
     dispatch(updateCurrentUser(updatedUser));
     const newSaveCount = Math.max((article.saveCount || 0) - 1, 0);
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
   };
 
   const popularArticles = [...items].sort((a, b) => (b.saveCount || 0) - (a.saveCount || 0)).slice(0, 3);
@@ -61,7 +61,7 @@ console.log(items)
       <h2 className="popular__title">Популярні статті</h2>
       <ul className="popular__list">
         {popularArticles.map((article) => {
-          const uniqueId = article.db_article_id || article.articleId || article.id;
+          const uniqueId = article.id || article.db_article_id || article.articleId;
           const isSaved = currentUser?.saved_art_ids?.includes(uniqueId);
           const isOwner = currentUser && String(article.ownerId) === String(currentUser.id);
 

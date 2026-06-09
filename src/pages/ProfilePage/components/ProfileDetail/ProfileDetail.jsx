@@ -93,7 +93,7 @@ const ProfileDetail = ({ onLogoutClick }) => {
       const updatedUser = { ...currentUser, avatar: avatarPreview };
 
       await axios.put(
-        `https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`,
+        `http://localhost:1487/users/${currentUser.id}`,
         updatedUser,
       );
 

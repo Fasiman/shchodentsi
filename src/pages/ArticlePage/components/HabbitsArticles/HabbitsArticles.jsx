@@ -10,7 +10,7 @@ const HabbitsArticles = ({ article }) => {
   const currentUser = useSelector((state) => state.users.currentUser);
   const dispatch = useDispatch();
 
-  const uniqueId = article.db_article_id || article.articleId || article.id;
+  const uniqueId = article.id || article.db_article_id || article.articleId;
   
   const isSaved = currentUser?.saved_art_ids?.includes(uniqueId);
   const isOwner = currentUser && String(article.ownerId) === String(currentUser.id);
@@ -45,7 +45,7 @@ const HabbitsArticles = ({ article }) => {
     const newSaveCount = (article.saveCount || 0) + 1;
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
 
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
   };
 
   const removeArticle = () => {
@@ -61,7 +61,7 @@ const HabbitsArticles = ({ article }) => {
     const newSaveCount = Math.max((article.saveCount || 0) - 1, 0);
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
 
-    axios.put(`https://696f45bda06046ce6185fca4.mockapi.io/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
   };
 
   return (

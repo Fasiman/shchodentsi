@@ -57,7 +57,7 @@ const Login = () => {
 
     try {
       const response = await axios.get(
-        `https://696f45bda06046ce6185fca4.mockapi.io/users?email=${email.trim().toLowerCase()}`
+        `http://localhost:1487/users?email=${email.trim().toLowerCase()}`
       );
       return response.data.length > 0;
     } catch (error) {

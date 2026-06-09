@@ -80,7 +80,7 @@ const AuthorProfilePage = () => {
             {userArticles.length > 0 ? (
               <ul className="profile__articles-list">
                 {userArticles.map((article) => {
-                  const articleIdentifier = article.db_article_id || article.articleId || article.id || article._id;
+                  const articleIdentifier = article.id || article.db_article_id || article.articleId || article._id;
                   return (
                     <li className="profile__article-item" key={articleIdentifier}>
                       <img

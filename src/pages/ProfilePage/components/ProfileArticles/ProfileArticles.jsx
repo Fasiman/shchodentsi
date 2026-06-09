@@ -25,7 +25,7 @@ const ProfileArticles = () => {
     ? items.filter(article => String(article.ownerId) === String(currentUser?.id))
     : activeTab === 'saved'
     ? items.filter(article => {
-        const uniqueId = article.db_article_id || article.articleId || article.id;
+        const uniqueId = article.id || article.db_article_id || article.articleId;
         return currentUser?.saved_art_ids?.includes(uniqueId);
       })
     : [];
@@ -53,7 +53,7 @@ const ProfileArticles = () => {
         {displayedArticles.length > 0 ? (
           <ul className="profile-articles__list">
             {displayedArticles.map((article) => {
-               const uniqueId = article.db_article_id || article.articleId || article.id;
+               const uniqueId = article.id || article.db_article_id || article.articleId;
                return (
               <li className="profile-articles__item" key={uniqueId}>
                 <img
