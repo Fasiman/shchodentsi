@@ -57,9 +57,12 @@ const Login = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:1487/users?email=${email.trim().toLowerCase()}`
+        `http://localhost:1487/user?email=${email.trim().toLowerCase()}`
       );
-      return response.data.length > 0;
+      const data = response.data;
+      if (Array.isArray(data)) return data.length > 0;
+      if (data && typeof data === 'object') return Object.keys(data).length > 0;
+      return !!data;
     } catch (error) {
       console.error("Error checking email existence", error);
       return false;

@@ -45,7 +45,7 @@ const HabbitsArticles = ({ article }) => {
     const newSaveCount = (article.saveCount || 0) + 1;
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
 
-    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/user/${currentUser.id}`, updatedUser);
   };
 
   const removeArticle = () => {
@@ -61,7 +61,7 @@ const HabbitsArticles = ({ article }) => {
     const newSaveCount = Math.max((article.saveCount || 0) - 1, 0);
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
 
-    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/user/${currentUser.id}`, updatedUser);
   };
 
   return (

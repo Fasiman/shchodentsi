@@ -35,6 +35,21 @@ const Register = () => {
     }
   };
 
+  const generateAvatarBase64 = async (seedName) => {
+    try {
+      const seed = seedName.trim().replace(/\s+/g, "");
+      const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed)}`;
+      const res = await fetch(url);
+      if (!res.ok) return "";
+      const svg = await res.text();
+      const base64 = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
+      return base64;
+    } catch (error) {
+      console.error("Error generating avatar base64:", error);
+      return "";
+    }
+  };
+
   const handleCheckEmailExists = async (email) => {
     if (!email.trim()) {
       return false;
@@ -50,9 +65,12 @@ const Register = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:1487/users?email=${userEmail}`
+        `http://localhost:1487/user?email=${userEmail}`
       );
-      return response.data.length > 0;
+      const data = response.data;
+      if (Array.isArray(data)) return data.length > 0;
+      if (data && typeof data === 'object') return Object.keys(data).length > 0;
+      return !!data;
     } catch (error) {
       console.error("Error checking email existence", error);
       return false;
@@ -77,8 +95,8 @@ const Register = () => {
       return;
     }
 
-    if (password.length < 3) {
-      showEmptyFieldsModal("Пароль повинен мати мінімально 3 символи");
+    if (password.length < 6) {
+      showEmptyFieldsModal("Пароль повинен мати мінімально 6 символів");
       return;
     }
 
@@ -94,15 +112,15 @@ const Register = () => {
         backdrop.style.display = "flex";
       }
     } else {
+      const avatarBase64 = await generateAvatarBase64(name);
+
       dispatch(
         registerUser({
           name: name.trim(),
           email: email.trim().toLowerCase(),
           password,
           saved: 0,
-          avatar:
-            "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
-            name.trim().replace(/\s+/g, ""),
+          avatar: avatarBase64 || "",
         })
       );
     }

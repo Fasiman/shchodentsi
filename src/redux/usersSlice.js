@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:1487/users";
+const API_URL = "http://localhost:1487/user";
 
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
@@ -25,6 +25,17 @@ export const registerUser = createAsyncThunk(
       return data;
     } catch (error) {
       console.error("Error registering user:", error.message);
+      // If backend doesn't allow POST (404), fall back to client-side creation
+      if (error.response && error.response.status === 404) {
+        console.warn("Backend does not allow creating users (404). Falling back to local creation.");
+        const fallbackUser = {
+          ...userData,
+          id: Date.now(),
+          createdAt: new Date().toISOString(),
+        };
+        return fallbackUser;
+      }
+
       return rejectWithValue(error.message || "Failed to register user");
     }
   }

@@ -93,7 +93,7 @@ const ProfileDetail = ({ onLogoutClick }) => {
       const updatedUser = { ...currentUser, avatar: avatarPreview };
 
       await axios.put(
-        `http://localhost:1487/users/${currentUser.id}`,
+        `http://localhost:1487/user/${currentUser.id}`,
         updatedUser,
       );
 

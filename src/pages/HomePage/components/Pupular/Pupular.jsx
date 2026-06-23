@@ -36,7 +36,7 @@ console.log(items)
     dispatch(updateCurrentUser(updatedUser));
     const newSaveCount = (article.saveCount || 0) + 1;
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
-    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/user/${currentUser.id}`, updatedUser);
   };
 
   const removeArticle = (article) => {
@@ -51,7 +51,7 @@ console.log(items)
     dispatch(updateCurrentUser(updatedUser));
     const newSaveCount = Math.max((article.saveCount || 0) - 1, 0);
     dispatch(updateArticleSaves({ id: article.id, saveCount: newSaveCount }));
-    axios.put(`http://localhost:1487/users/${currentUser.id}`, updatedUser);
+    axios.put(`http://localhost:1487/user/${currentUser.id}`, updatedUser);
   };
 
   const popularArticles = [...items].sort((a, b) => (b.saveCount || 0) - (a.saveCount || 0)).slice(0, 3);
