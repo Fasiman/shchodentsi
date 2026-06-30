@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 const API_URL = "http://localhost:1487/user";
 
@@ -7,8 +6,24 @@ export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(API_URL);
-      return data;
+      console.log("Fetching users from:", API_URL);
+      const response = await fetch(API_URL);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log("Fetched users:", data);
+      
+      // Ensure data is an array
+      if (Array.isArray(data)) {
+        return data;
+      }
+      if (typeof data === 'object' && data !== null) {
+        return Object.values(data);
+      }
+      return [];
     } catch (error) {
       console.error("Error fetching users:", error.message);
       return rejectWithValue(error.message || "Failed to fetch users");
@@ -20,22 +35,31 @@ export const registerUser = createAsyncThunk(
   "users/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(API_URL, userData);
+      console.log("Registering user with data:", userData);
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
       
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Registration error response:", errorData);
+        
+        if (response.status === 409) {
+          return rejectWithValue("Email already exists");
+        }
+        
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log("User registered successfully:", data);
       return data;
     } catch (error) {
       console.error("Error registering user:", error.message);
-      // If backend doesn't allow POST (404), fall back to client-side creation
-      if (error.response && error.response.status === 404) {
-        console.warn("Backend does not allow creating users (404). Falling back to local creation.");
-        const fallbackUser = {
-          ...userData,
-          id: Date.now(),
-          createdAt: new Date().toISOString(),
-        };
-        return fallbackUser;
-      }
-
       return rejectWithValue(error.message || "Failed to register user");
     }
   }

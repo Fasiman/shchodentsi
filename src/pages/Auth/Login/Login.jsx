@@ -4,8 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import Container from "../../../components/Container/Container";
 import { fetchUsers, login, resetError } from "../../../redux/usersSlice";
 
-import axios from "axios";
-
 import NoEmail from "./components/NoEmail/NoEmail";
 import WrongPassword from "./components/WrongPassword/WrongPassword";
 import EmptyFields from "./components/EmptyFields/EmptyFields";
@@ -35,7 +33,7 @@ const Login = () => {
     if (error === "wrong_password") {
       const wrongPasswordModal = document.querySelector(".wrong-password__backdrop");
       if (wrongPasswordModal) {
-        wrongPasswordModal.style.display = "flex";
+        wrongPasswordModal.classList.add("active");
       }
       dispatch(resetError());
     }
@@ -45,7 +43,7 @@ const Login = () => {
     setErrorMessage(msg);
     const emptyFieldsModal = document.querySelector(".empty-fields__backdrop");
     if (emptyFieldsModal) {
-      emptyFieldsModal.style.display = "flex";
+      emptyFieldsModal.classList.add("active");
     }
   };
 
@@ -56,15 +54,30 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.get(
-        `http://localhost:1487/user?email=${email.trim().toLowerCase()}`
+      const userEmail = email.trim().toLowerCase();
+      console.log("Checking if email exists:", userEmail);
+      
+      const response = await fetch(
+        `http://localhost:1487/user?email=${encodeURIComponent(userEmail)}`
       );
-      const data = response.data;
-      if (Array.isArray(data)) return data.length > 0;
-      if (data && typeof data === 'object') return Object.keys(data).length > 0;
+      
+      if (!response.ok) {
+        console.error("Email check failed with status:", response.status);
+        showEmptyFieldsModal("Не вдалося перевірити пошту. Спробуйте пізніше");
+        return false;
+      }
+      
+      const data = await response.json();
+      console.log("Email check response:", data);
+      
+      if (Array.isArray(data)) {
+        return data.length > 0;
+      }
+      
       return !!data;
     } catch (error) {
-      console.error("Error checking email existence", error);
+      console.error("Error checking email:", error);
+      showEmptyFieldsModal("Не вдалося перевірити пошту. Спробуйте пізніше");
       return false;
     }
   };
@@ -79,7 +92,7 @@ const Login = () => {
     if (!emailExists) {
       const noEmailModal = document.querySelector(".no-email__backdrop");
       if (noEmailModal) {
-        noEmailModal.style.display = "flex";
+        noEmailModal.classList.add("active");
       }
     } else {
       if (!password.trim()) {

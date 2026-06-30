@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 import Container from "../../../components/Container/Container";
-import { Link } from "react-router-dom";
 import { registerUser } from "../../../redux/usersSlice";
 
 import ExistsModal from "./components/ExistsModal/Exists";
 import EmptyFields from "../Login/components/EmptyFields/EmptyFields";
-import axios from "axios";
 
 import "./Register.css";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { currentUser } = useSelector((state) => state.users);
 
   const [name, setName] = useState("");
@@ -27,52 +27,82 @@ const Register = () => {
     }
   }, [currentUser, navigate]);
 
-  const showEmptyFieldsModal = (msg) => {
-    setErrorMessage(msg);
-    const emptyFieldsModal = document.querySelector(".empty-fields__backdrop");
-    if (emptyFieldsModal) {
-      emptyFieldsModal.style.display = "flex";
+  const showEmptyFieldsModal = (message) => {
+    setErrorMessage(message);
+
+    const modal = document.querySelector(".empty-fields__backdrop");
+    if (modal) {
+      modal.classList.add("active");
+    }
+  };
+
+  const showExistsModal = () => {
+    const modal = document.querySelector(".exists-modal__backdrop");
+    if (modal) {
+      modal.classList.add("active");
     }
   };
 
   const generateAvatarBase64 = async (seedName) => {
     try {
       const seed = seedName.trim().replace(/\s+/g, "");
-      const url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed)}`;
-      const res = await fetch(url);
-      if (!res.ok) return "";
-      const svg = await res.text();
-      const base64 = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
-      return base64;
+
+      const response = await fetch(
+        `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
+          seed
+        )}`
+      );
+
+      if (!response.ok) return "";
+
+      const svg = await response.text();
+
+      return (
+        "data:image/svg+xml;base64," +
+        btoa(unescape(encodeURIComponent(svg)))
+      );
     } catch (error) {
-      console.error("Error generating avatar base64:", error);
+      console.error("Avatar error:", error);
       return "";
     }
   };
 
-  const handleCheckEmailExists = async (email) => {
-    if (!email.trim()) {
-      return false;
-    }
-    
+  const checkEmailExists = async () => {
     const userEmail = email.trim().toLowerCase();
-    
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailRegex.test(userEmail)) {
       showEmptyFieldsModal("Будь ласка, введіть правильну пошту");
-      return null;
+      return true;
     }
 
     try {
-      const response = await axios.get(
-        `http://localhost:1487/user?email=${userEmail}`
+      console.log("Checking if email exists:", userEmail);
+      
+      const response = await fetch(
+        `http://localhost:1487/user?email=${encodeURIComponent(userEmail)}`
       );
-      const data = response.data;
-      if (Array.isArray(data)) return data.length > 0;
-      if (data && typeof data === 'object') return Object.keys(data).length > 0;
-      return !!data;
+      
+      if (!response.ok) {
+        console.error("Email check failed with status:", response.status);
+        return false;
+      }
+      
+      const data = await response.json();
+      console.log("Email check response:", data);
+
+      if (Array.isArray(data)) {
+        const exists = data.length > 0;
+        console.log("Email exists (array):", exists);
+        return exists;
+      }
+
+      const exists = !!data;
+      console.log("Email exists (object):", exists);
+      return exists;
     } catch (error) {
-      console.error("Error checking email existence", error);
+      console.error("Error checking email:", error);
       return false;
     }
   };
@@ -81,91 +111,108 @@ const Register = () => {
     e.preventDefault();
 
     if (!name.trim()) {
-      showEmptyFieldsModal("Будь ласка, введіть ім'я");
-      return;
+      return showEmptyFieldsModal("Будь ласка, введіть ім'я");
     }
 
     if (!email.trim()) {
-      showEmptyFieldsModal("Будь ласка, введіть пошту");
-      return;
+      return showEmptyFieldsModal("Будь ласка, введіть пошту");
     }
 
     if (!password.trim()) {
-      showEmptyFieldsModal("Будь ласка, введіть пароль");
-      return;
+      return showEmptyFieldsModal("Будь ласка, введіть пароль");
     }
 
     if (password.length < 6) {
-      showEmptyFieldsModal("Пароль повинен мати мінімально 6 символів");
+      return showEmptyFieldsModal(
+        "Пароль повинен містити мінімум 6 символів"
+      );
+    }
+
+    const exists = await checkEmailExists();
+
+    if (exists) {
+      showExistsModal();
       return;
     }
 
-    const exists = await handleCheckEmailExists(email);
-    
-    if (exists === null) {
-      return;
-    }
+    const avatar = await generateAvatarBase64(name);
 
-    if (exists === true) {
-      const backdrop = document.querySelector(".exists-modal__backdrop");
-      if (backdrop) {
-        backdrop.style.display = "flex";
-      }
-    } else {
-      const avatarBase64 = await generateAvatarBase64(name);
-
-      dispatch(
+    try {
+      await dispatch(
         registerUser({
           name: name.trim(),
           email: email.trim().toLowerCase(),
           password,
           saved: 0,
-          avatar: avatarBase64 || "",
+          avatar,
         })
       );
+
+      navigate("/profile");
+    } catch (error) {
+      console.error("Registration error:", error);
+      showEmptyFieldsModal("Помилка під час реєстрації");
     }
   };
 
   return (
     <main>
-      <ExistsModal onClose={() => {
-        const backdrop = document.querySelector(".exists-modal__backdrop");
-        if (backdrop) backdrop.style.display = "none";
-      }} />
+      <ExistsModal
+        onClose={() => {
+          const modal = document.querySelector(".exists-modal__backdrop");
+          if (modal) {
+            modal.classList.remove("active");
+          }
+        }}
+      />
+
       <EmptyFields message={errorMessage} />
+
       <section className="register__section">
         <Container>
           <h1 className="register__title">Реєстрація</h1>
-          <p className="register__description">Покращуємо своє життя разом!</p>
+
+          <p className="register__description">
+            Покращуємо своє життя разом!
+          </p>
+
           <form className="register__form" onSubmit={handleSubmit}>
             <ul className="register__list">
               <li className="register__item">
-                <span className="register__name">Імʼя та Прізвище*</span>
+                <span className="register__name">
+                  Імʼя та Прізвище*
+                </span>
+
                 <input
                   type="text"
-                  name="name"
                   className="register__input"
                   placeholder="Ваше імʼя та прізвище"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </li>
+
               <li className="register__item">
-                <span className="register__name">Пошта*</span>
+                <span className="register__name">
+                  Пошта*
+                </span>
+
                 <input
                   type="email"
-                  name="email"
                   className="register__input"
                   placeholder="hello@podorozhnyky.ua"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </li>
+
               <li className="register__item">
-                <span className="register__name">Пароль*</span>
+                <span className="register__name">
+                  Пароль*
+                </span>
+
                 <input
                   type="password"
-                  name="password"
                   className="register__input"
                   placeholder="********"
                   value={password}
@@ -173,12 +220,20 @@ const Register = () => {
                 />
               </li>
             </ul>
-            <button type="submit" className="register__submit">
+
+            <button
+              type="submit"
+              className="register__submit"
+            >
               Зареєструватись
             </button>
+
             <p className="register__have">
               Вже є акаунт?{" "}
-              <Link to="/auth/login" className="register__link">
+              <Link
+                to="/auth/login"
+                className="register__link"
+              >
                 Авторизуватись
               </Link>
             </p>

@@ -6,7 +6,7 @@ const NoEmail = () => {
   const handleClose = () => {
     const backdrop = document.querySelector(".no-email__backdrop");
     if (backdrop) {
-      backdrop.style.display = "none";
+      backdrop.classList.remove("active");
     }
   };
   return (

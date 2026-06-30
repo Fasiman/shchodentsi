@@ -5,12 +5,20 @@ import { Link } from "react-router-dom";
 
 
 const ExistsModal = ({ onClose }) => {
+  const handleClose = () => {
+    const backdrop = document.querySelector(".exists-modal__backdrop");
+    if (backdrop) {
+      backdrop.classList.remove("active");
+    }
+    if (onClose) onClose();
+  };
+
   return (
-    <div className="exists-modal__backdrop" onClick={onClose}>
-      <div className="exists-modal">
+    <div className="exists-modal__backdrop" onClick={handleClose}>
+      <div className="exists-modal" onClick={(e) => e.stopPropagation()}>
         <button
           className="exists-modal__close"
-          onClick={onClose}
+          onClick={handleClose}
           aria-label="Закрити модальне вікно"
         >
           <IoClose />

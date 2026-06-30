@@ -5,7 +5,7 @@ const EmptyFields = ({ message }) => {
   const handleClose = () => {
     const backdrop = document.querySelector(".empty-fields__backdrop");
     if (backdrop) {
-      backdrop.style.display = "none";
+      backdrop.classList.remove("active");
     }
   };
 
